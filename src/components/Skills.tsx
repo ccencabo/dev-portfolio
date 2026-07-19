@@ -1,200 +1,60 @@
-import { motion, useInView, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef, useState } from "react";
 import TextReveal from "./TextReveal";
 
-const skillCategories = [
-  {
-    title: "Frontend",
-    color: "343 70% 70%",
-    skills: [
-      "Javascript",
-      "HTML/CSS",
-      "React",
-      "TypeScript",
-      "Next.js",
-      "Tailwind",
-      "Bootstrap",
-      "Framer Motion",
-    ],
-  },
-  {
-    title: "Backend",
-    color: "270 70% 80%",
-    skills: ["PHP", "Laravel", "Java", "MySQL", "REST APIs"],
-  },
-  {
-    title: "Tools & Other Skills",
-    color: "25 80% 75%",
-    skills: [
-      "UI/UX Design",
-      "Git",
-      "Github / Bitbucket",
-      "Figma",
-      "Postman",
-      "Docker",
-    ],
-  },
+const row1Skills = [
+  "JavaScript",
+  "TypeScript",
+  "React.js",
+  "Next.js",
+  "Framer Motion",
+  "Tailwind CSS",
+  "HTML5",
+  "CSS3",
+  "Radix UI",
+  "shadcn/ui"
 ];
 
-const SkillCard = ({
-  category,
-  index,
-  inView,
-}: {
-  category: (typeof skillCategories)[0];
-  index: number;
-  inView: boolean;
-}) => {
-  const [isFlipped, setIsFlipped] = useState(false);
-  const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
-
-  return (
-    <motion.div
-      className="perspective-[800px] cursor-pointer"
-      initial={{ opacity: 0, y: 40, rotateX: 15 }}
-      animate={inView ? { opacity: 1, y: 0, rotateX: 0 } : {}}
-      transition={{ duration: 0.6, delay: 0.2 + index * 0.15, ease: "easeOut" }}
-      onClick={() => setIsFlipped(!isFlipped)}
-    >
-      <motion.div
-        className="relative w-full h-[320px] md:h-[350px]" // Changed to fixed height for consistent flipping
-        style={{ transformStyle: "preserve-3d" }}
-        animate={{ rotateY: isFlipped ? 180 : 0 }}
-        transition={{
-          duration: 0.6,
-          type: "spring",
-          stiffness: 200,
-          damping: 25,
-        }}
-      >
-        {/* Front */}
-        <div
-          className="absolute inset-0 rounded-2xl border p-6 md:p-8 flex flex-col justify-between"
-          style={{
-            backfaceVisibility: "hidden",
-            background: `linear-gradient(145deg, hsl(${category.color} / 0.08), hsl(var(--card)) 60%)`,
-            borderColor: `hsl(${category.color} / 0.2)`,
-            boxShadow: `0 4px 30px hsl(${category.color} / 0.05)`,
-          }}
-        >
-          <div>
-            <div
-              className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 font-sans text-lg font-bold"
-              style={{
-                background: `hsl(${category.color} / 0.12)`,
-                color: `hsl(${category.color})`,
-                border: `1px solid hsl(${category.color} / 0.25)`,
-              }}
-            >
-              {index === 0 ? "✨" : index === 1 ? "🌸" : "💫"}
-            </div>
-            <h3
-              className="text-xl md:text-2xl font-bold font-sans mb-2"
-              style={{ color: `hsl(${category.color})` }}
-            >
-              {category.title}
-            </h3>
-            <p className="text-sm text-muted-foreground font-sans font-medium">
-              {category.skills.length} technologies
-            </p>
-          </div>
-
-          <div className="flex flex-wrap gap-2 mt-4">
-            {category.skills.slice(0, 3).map((skill) => (
-              <span
-                key={skill}
-                className="text-xs font-sans font-semibold px-3 py-1 rounded-full border"
-                style={{
-                  borderColor: `hsl(${category.color} / 0.25)`,
-                  color: `hsl(${category.color} / 0.8)`,
-                  background: `hsl(${category.color} / 0.06)`,
-                }}
-              >
-                {skill}
-              </span>
-            ))}
-            <span
-              className="text-xs font-sans font-semibold px-3 py-1 rounded-full border"
-              style={{
-                borderColor: `hsl(${category.color} / 0.15)`,
-                color: `hsl(${category.color} / 0.5)`,
-              }}
-            >
-              +{category.skills.length - 3}
-            </span>
-          </div>
-
-          <p className="text-[10px] font-sans font-bold mt-4 tracking-wider uppercase opacity-40">
-            click to flip →
-          </p>
-        </div>
-
-        {/* Back */}
-        <div
-          className="absolute inset-0 rounded-2xl border p-6 flex flex-col"
-          style={{
-            backfaceVisibility: "hidden",
-            transform: "rotateY(180deg)",
-            background: `linear-gradient(145deg, hsl(${category.color} / 0.12), hsl(var(--card)) 50%)`,
-            borderColor: `hsl(${category.color} / 0.3)`,
-          }}
-        >
-          <h4
-            className="text-lg font-bold font-sans mb-4 shrink-0"
-            style={{ color: `hsl(${category.color})` }}
-          >
-            {category.title}
-          </h4>
-
-          <div className="flex-1 overflow-y-auto pr-2 custom-scrollbar">
-            <div className="grid grid-cols-2 gap-2">
-              {category.skills.map((skill) => (
-                <motion.div
-                  key={skill}
-                  className="flex items-center justify-center rounded-xl border px-2 py-3 font-sans font-semibold text-[12px] text-center transition-all"
-                  style={{
-                    borderColor:
-                      hoveredSkill === skill
-                        ? `hsl(${category.color} / 0.6)`
-                        : `hsl(${category.color} / 0.15)`,
-                    background:
-                      hoveredSkill === skill
-                        ? `hsl(${category.color} / 0.15)`
-                        : `hsl(${category.color} / 0.04)`,
-                    color:
-                      hoveredSkill === skill
-                        ? `hsl(${category.color})`
-                        : `hsl(${category.color} / 0.7)`,
-                  }}
-                  onMouseEnter={() => setHoveredSkill(skill)}
-                  onMouseLeave={() => setHoveredSkill(null)}
-                >
-                  {skill}
-                </motion.div>
-              ))}
-            </div>
-          </div>
-
-          <p className="text-[10px] font-sans font-bold mt-4 tracking-wider uppercase opacity-40 shrink-0">
-            ← flip back
-          </p>
-        </div>
-      </motion.div>
-    </motion.div>
-  );
-};
+const row2Skills = [
+  "PHP",
+  "Laravel",
+  "Java",
+  "MySQL",
+  "PostgreSQL",
+  "REST APIs",
+  "Figma",
+  "Git",
+  "GitHub",
+  "Docker",
+  "Postman"
+];
 
 const Skills = () => {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-100px" });
+  const [activeTab, setActiveTab] = useState("frontend.json");
 
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"],
   });
 
-  const opacity = useTransform(scrollYProgress, [0, 0.25, 0.75, 1], [0.3, 1, 1, 0.3]);
-  const scale = useTransform(scrollYProgress, [0, 0.25, 0.75, 1], [0.97, 1, 1, 0.97]);
+  const opacity = useTransform(
+    scrollYProgress,
+    [0, 0.25, 0.75, 1],
+    [0.3, 1, 1, 0.3]
+  );
+  const scale = useTransform(
+    scrollYProgress,
+    [0, 0.25, 0.75, 1],
+    [0.97, 1, 1, 0.97]
+  );
+
+  // Tab definitions
+  const tabs = [
+    { name: "frontend.json", label: "frontend.json" },
+    { name: "backend.json", label: "backend.json" },
+    { name: "tools.json", label: "tools.json" },
+  ];
 
   return (
     <motion.section
@@ -208,12 +68,279 @@ const Skills = () => {
           Tech Stack<span className="text-primary">.</span>
         </h2>
       </TextReveal>
-      <div className="glow-line mb-12" />
+      <div className="glow-line mb-8" />
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {skillCategories.map((cat, i) => (
-          <SkillCard key={cat.title} category={cat} index={i} inView={inView} />
-        ))}
+      {/* Aesthetic Instruction Comment */}
+      <p className="text-center font-sans text-xs text-muted-foreground/50 mb-6 tracking-wide flex items-center justify-center gap-1.5 select-none">
+        <span className="text-primary font-mono font-bold">//</span> Click the tabs below to explore different files
+        <span className="text-primary animate-pulse">✨</span>
+      </p>
+
+      {/* macOS Styled Code Editor */}
+      <div className="relative w-full border border-border/40 rounded-2xl bg-[#0f0a0d] shadow-2xl overflow-hidden group hover:shadow-[0_0_50px_hsl(var(--primary)/0.08)] transition-shadow duration-500">
+
+        {/* Soft background glow */}
+        <div className="absolute inset-0 -z-10 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 pointer-events-none opacity-40" />
+
+        {/* Editor Title Bar */}
+        <div className="flex items-center justify-between px-4 py-3 border-b border-border/40 bg-[#160f13] select-none">
+          {/* Windows Dots */}
+          <div className="flex gap-1.5">
+            <span className="w-3 h-3 rounded-full bg-[#ff5f56]" />
+            <span className="w-3 h-3 rounded-full bg-[#ffbd2e]" />
+            <span className="w-3 h-3 rounded-full bg-[#27c93f]" />
+          </div>
+
+          {/* File Tabs */}
+          <div className="flex gap-2">
+            {tabs.map((tab) => (
+              <div
+                key={tab.name}
+                onClick={() => setActiveTab(tab.name)}
+                className={`px-3.5 py-1 rounded-md text-[10px] md:text-[11px] font-sans font-bold cursor-pointer transition-all duration-200 border ${activeTab === tab.name
+                    ? "bg-[#25151e] text-primary border-primary/20 shadow-[0_0_15px_hsl(var(--primary)/0.1)]"
+                    : "text-muted-foreground/60 border-transparent hover:text-muted-foreground"
+                  }`}
+              >
+                {tab.label}
+              </div>
+            ))}
+          </div>
+
+          {/* Editor Metadata */}
+          <span className="text-[9px] font-sans font-bold tracking-wider text-muted-foreground/30 uppercase">
+            JSON
+          </span>
+        </div>
+
+        {/* Editor Content Area */}
+        <div className="p-4 md:p-8 overflow-x-auto text-left min-h-[280px] flex items-start select-text leading-relaxed">
+          {/* Line Numbers */}
+          <div className="text-muted-foreground/30 text-right pr-4 select-none border-r border-border/20 mr-4 font-sans text-xs md:text-sm">
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
+            <div>4</div>
+            <div>5</div>
+            <div>6</div>
+            <div>7</div>
+            <div>8</div>
+            <div>9</div>
+            <div>10</div>
+          </div>
+
+          {/* Syntax Highlighted JSON Views */}
+          <div className="text-[#e2cbd6] font-mono text-xs md:text-sm flex-1">
+            {activeTab === "frontend.json" && (
+              <div>
+                <div>
+                  <span className="text-[#a78bfa]">{`{`}</span>
+                </div>
+                <div className="pl-6">
+                  <span className="text-[#ec4899]">"languages"</span>:{" "}
+                  <span className="text-[#a78bfa]">[</span>
+                  <span className="text-[#fca5a5]">"JavaScript"</span>,{" "}
+                  <span className="text-[#fca5a5]">"TypeScript"</span>,{" "}
+                  <span className="text-[#fca5a5]">"HTML5"</span>,{" "}
+                  <span className="text-[#fca5a5]">"CSS3"</span>
+                  <span className="text-[#a78bfa]">]</span>,
+                </div>
+                <div className="pl-6">
+                  <span className="text-[#ec4899]">"frameworks"</span>:{" "}
+                  <span className="text-[#a78bfa]">[</span>
+                  <span className="text-[#fca5a5]">"React.js"</span>,{" "}
+                  <span className="text-[#fca5a5]">"Next.js"</span>
+                  <span className="text-[#a78bfa]">]</span>,
+                </div>
+                <div className="pl-6">
+                  <span className="text-[#ec4899]">"styling"</span>:{" "}
+                  <span className="text-[#a78bfa]">[</span>
+                  <span className="text-[#fca5a5]">"Tailwind CSS"</span>,{" "}
+                  <span className="text-[#fca5a5]">"Bootstrap"</span>
+                  <span className="text-[#a78bfa]">]</span>,
+                </div>
+                <div className="pl-6">
+                  <span className="text-[#ec4899]">"animations"</span>:{" "}
+                  <span className="text-[#a78bfa]">[</span>
+                  <span className="text-[#fca5a5]">"Framer Motion"</span>
+                  <span className="text-[#a78bfa]">]</span>,
+                </div>
+                <div className="pl-6">
+                  <span className="text-[#ec4899]">"uiComponents"</span>:{" "}
+                  <span className="text-[#a78bfa]">[</span>
+                  <span className="text-[#fca5a5]">"Radix UI"</span>,{" "}
+                  <span className="text-[#fca5a5]">"shadcn/ui"</span>
+                  <span className="text-[#a78bfa]">]</span>
+                </div>
+                <div>
+                  <span className="text-[#a78bfa]">{`}`}</span>
+                  <span className="animate-cursor-blink text-primary ml-1">|</span>
+                </div>
+              </div>
+            )}
+
+            {activeTab === "backend.json" && (
+              <div>
+                <div>
+                  <span className="text-[#a78bfa]">{`{`}</span>
+                </div>
+                <div className="pl-6">
+                  <span className="text-[#ec4899]">"languages"</span>:{" "}
+                  <span className="text-[#a78bfa]">[</span>
+                  <span className="text-[#fca5a5]">"PHP"</span>,{" "}
+                  <span className="text-[#fca5a5]">"Java"</span>,{" "}
+                  <span className="text-[#fca5a5]">"Node.js"</span>
+                  <span className="text-[#a78bfa]">]</span>,
+                </div>
+                <div className="pl-6">
+                  <span className="text-[#ec4899]">"frameworks"</span>:{" "}
+                  <span className="text-[#a78bfa]">[</span>
+                  <span className="text-[#fca5a5]">"Laravel"</span>,{" "}
+                  <span className="text-[#fca5a5]">"Express.js"</span>
+                  <span className="text-[#a78bfa]">]</span>,
+                </div>
+                <div className="pl-6">
+                  <span className="text-[#ec4899]">"databases"</span>:{" "}
+                  <span className="text-[#a78bfa]">[</span>
+                  <span className="text-[#fca5a5]">"MySQL"</span>,{" "}
+                  <span className="text-[#fca5a5]">"PostgreSQL"</span>,{" "}
+                  <span className="text-[#fca5a5]">"Prisma ORM"</span>
+                  <span className="text-[#a78bfa]">]</span>,
+                </div>
+                <div className="pl-6">
+                  <span className="text-[#ec4899]">"communication"</span>:{" "}
+                  <span className="text-[#a78bfa]">[</span>
+                  <span className="text-[#fca5a5]">"REST APIs"</span>,{" "}
+                  <span className="text-[#fca5a5]">"WebSockets"</span>
+                  <span className="text-[#a78bfa]">]</span>
+                </div>
+                <div>
+                  <span className="text-[#a78bfa]">{`}`}</span>
+                  <span className="animate-cursor-blink text-primary ml-1">|</span>
+                </div>
+              </div>
+            )}
+
+            {activeTab === "tools.json" && (
+              <div>
+                <div>
+                  <span className="text-[#a78bfa]">{`{`}</span>
+                </div>
+                <div className="pl-6">
+                  <span className="text-[#ec4899]">"design"</span>:{" "}
+                  <span className="text-[#a78bfa]">[</span>
+                  <span className="text-[#fca5a5]">"Figma"</span>,{" "}
+                  <span className="text-[#fca5a5]">"UI/UX Design"</span>
+                  <span className="text-[#a78bfa]">]</span>,
+                </div>
+                <div className="pl-6">
+                  <span className="text-[#ec4899]">"versionControl"</span>:{" "}
+                  <span className="text-[#a78bfa]">[</span>
+                  <span className="text-[#fca5a5]">"Git"</span>,{" "}
+                  <span className="text-[#fca5a5]">"GitHub"</span>,{" "}
+                  <span className="text-[#fca5a5]">"Bitbucket"</span>
+                  <span className="text-[#a78bfa]">]</span>,
+                </div>
+                <div className="pl-6">
+                  <span className="text-[#ec4899]">"testing"</span>:{" "}
+                  <span className="text-[#a78bfa]">[</span>
+                  <span className="text-[#fca5a5]">"Postman"</span>
+                  <span className="text-[#a78bfa]">]</span>,
+                </div>
+                <div className="pl-6">
+                  <span className="text-[#ec4899]">"containers"</span>:{" "}
+                  <span className="text-[#a78bfa]">[</span>
+                  <span className="text-[#fca5a5]">"Docker"</span>
+                  <span className="text-[#a78bfa]">]</span>,
+                </div>
+                <div className="pl-6">
+                  <span className="text-[#ec4899]">"packageManagers"</span>:{" "}
+                  <span className="text-[#a78bfa]">[</span>
+                  <span className="text-[#fca5a5]">"npm"</span>,{" "}
+                  <span className="text-[#fca5a5]">"pnpm"</span>,{" "}
+                  <span className="text-[#fca5a5]">"yarn"</span>
+                  <span className="text-[#a78bfa]">]</span>
+                </div>
+                <div>
+                  <span className="text-[#a78bfa]">{`}`}</span>
+                  <span className="animate-cursor-blink text-primary ml-1">|</span>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Infinite Auto-Playing Marquee Chips */}
+      <div className="mt-16 space-y-6">
+        {/* Style block */}
+        <style>{`
+          @keyframes marquee-left {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+          }
+          @keyframes marquee-right {
+            0% { transform: translateX(-50%); }
+            100% { transform: translateX(0); }
+          }
+          .marquee-container {
+            display: flex;
+            overflow: hidden;
+            user-select: none;
+            gap: 1rem;
+            padding: 1.25rem 0;
+            mask-image: linear-gradient(to right, transparent, white 15%, white 85%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, white 15%, white 85%, transparent);
+          }
+          .marquee-content {
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            gap: 1rem;
+            min-width: 100%;
+          }
+          .marquee-left {
+            animation: marquee-left 30s linear infinite;
+          }
+          .marquee-right {
+            animation: marquee-right 30s linear infinite;
+          }
+          .marquee-container:hover .marquee-left,
+          .marquee-container:hover .marquee-right {
+            animation-play-state: paused;
+          }
+        `}</style>
+
+        {/* Row 1 (Left Scrolling) */}
+        <div className="marquee-container">
+          <div className="marquee-content marquee-left">
+            {row1Skills.concat(row1Skills).map((skill, idx) => (
+              <span
+                key={`r1-${skill}-${idx}`}
+                className="px-5 py-2.5 rounded-full border border-primary/20 bg-primary/5 text-primary text-xs font-sans font-bold shadow-[0_0_15px_hsl(var(--primary)/0.03)] hover:scale-105 hover:bg-primary/10 hover:border-primary/40 hover:shadow-[0_0_15px_hsl(var(--primary)/0.15)] transition-all duration-300 cursor-default inline-block shrink-0 animate-float"
+                style={{ animationDelay: `${(idx % 4) * 0.4}s`, animationDuration: "4s" }}
+              >
+                {skill}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {/* Row 2 (Right Scrolling) */}
+        <div className="marquee-container">
+          <div className="marquee-content marquee-right">
+            {row2Skills.concat(row2Skills).map((skill, idx) => (
+              <span
+                key={`r2-${skill}-${idx}`}
+                className="px-5 py-2.5 rounded-full border border-accent/20 bg-accent/5 text-accent text-xs font-sans font-bold shadow-[0_0_15px_hsl(var(--accent)/0.03)] hover:scale-105 hover:bg-accent/10 hover:border-accent/40 hover:shadow-[0_0_15px_hsl(var(--accent)/0.15)] transition-all duration-300 cursor-default inline-block shrink-0 animate-float"
+                style={{ animationDelay: `${(idx % 4) * 0.4 + 0.2}s`, animationDuration: "4s" }}
+              >
+                {skill}
+              </span>
+            ))}
+          </div>
+        </div>
       </div>
     </motion.section>
   );

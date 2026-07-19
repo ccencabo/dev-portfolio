@@ -87,10 +87,10 @@ const Hero = ({ onNavigate }: HeroProps) => {
                 I build{" "}
                 <TypeWriter
                   words={[
-                    "web apps. ✨",
-                    "interfaces. 🌸",
-                    "experiences. 💕",
-                    "the future. 💫",
+                    "web apps. 💻",
+                    "interfaces. 🎨",
+                    "experiences. ✨",
+                    "digital products. 🚀",
                   ]}
                   className="text-primary"
                 />

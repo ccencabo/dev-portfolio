@@ -1,37 +1,48 @@
-import { motion, useInView, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import { GraduationCap, MapPin } from "lucide-react";
 import TextReveal from "./TextReveal";
 import ProfilePic from "../assets/cara.jpg";
 
 const About = () => {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-100px" });
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"],
   });
-  const y = useTransform(scrollYProgress, [0, 1], [60, -60]);
 
-  const infoItems = [
+  const opacity = useTransform(
+    scrollYProgress,
+    [0, 0.25, 0.75, 1],
+    [0.3, 1, 1, 0.3]
+  );
+  const scale = useTransform(
+    scrollYProgress,
+    [0, 0.25, 0.75, 1],
+    [0.97, 1, 1, 0.97]
+  );
+
+  const timelineItems = [
     {
-      icon: <GraduationCap className="text-primary" size={24} />,
-      label: "Education",
-      value: "BS Information Technology",
-      sub: "Cebu Institute of Technology - University",
-      extra: "Magna Cum Laude (2020 – 2024)",
+      step: "01 / WHO I AM",
+      title: "Full Stack Web Developer",
+      desc: "I'm a full stack web developer passionate about building scalable, user-focused applications. I enjoy solving complex problems, developing reliable backend systems, and creating intuitive interfaces that deliver a seamless user experience.",
     },
     {
-      icon: <MapPin className="text-primary" size={24} />,
-      label: "Location",
-      value: "Cebu City, Philippines",
-      sub: "Open to Remote / Hybrid / On-site",
-      extra: "Available for worldwide projects",
+      step: "02 / LOCATION",
+      title: "Cebu City, Philippines",
+      desc: "Based in Cebu City and open to remote, hybrid, or on-site opportunities.",
+    },
+    {
+      step: "03 / EDUCATION",
+      title: "BS Information Technology",
+      desc: "Graduated Magna Cum Laude with a Bachelor of Science in Information Technology from Cebu Institute of Technology – University (CIT-U).",
+    },
+    {
+      step: "04 / BEYOND WORK",
+      title: "Books, Gaming & Outdoors",
+      desc: "When I'm away from my keyboard, you'll likely find me reading thriller books, climbing ranks in games, or chasing adventures outdoors.",
     },
   ];
-
-  const opacity = useTransform(scrollYProgress, [0, 0.25, 0.75, 1], [0.3, 1, 1, 0.3]);
-  const scale = useTransform(scrollYProgress, [0, 0.25, 0.75, 1], [0.97, 1, 1, 0.97]);
 
   return (
     <motion.section
@@ -47,73 +58,60 @@ const About = () => {
       </TextReveal>
       <div className="glow-line mb-10" />
 
-      <div className="grid md:grid-cols-2 gap-10 items-center">
-        {/* Left Side: Info & Paragraph */}
-        <motion.div
-          initial={{ opacity: 0, x: -30 }}
-          animate={inView ? { opacity: 1, x: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="space-y-8"
-        >
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {infoItems.map((item, index) => (
-              <div
-                key={index}
-                className="p-5 rounded-2xl border border-border bg-card/50 hover:bg-card transition-all group"
-              >
-                <div className="mb-3 p-2.5 w-fit rounded-xl bg-primary/10 group-hover:bg-primary/20 transition-colors">
-                  {item.icon}
+      {/* 2-Column Layout */}
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-10 items-center">
+
+        {/* Left Column: macOS Profile widget (col-span-5) */}
+        <div className="md:col-span-5 border border-border/50 bg-[#160f13] rounded-2xl shadow-xl overflow-hidden flex flex-col justify-between group hover:border-primary/30 transition-all duration-300 select-none">
+          {/* Header dots */}
+          <div className="flex items-center justify-between px-4 py-2.5 border-b border-border/40 bg-[#160f13]/80">
+            <div className="flex gap-1.5">
+              <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f56]" />
+              <span className="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]" />
+              <span className="w-2.5 h-2.5 rounded-full bg-[#27c93f]" />
+            </div>
+            <span className="text-[10px] font-mono text-muted-foreground/60">
+              cara.png
+            </span>
+            <div className="w-10" />
+          </div>
+
+          {/* Photo area */}
+          <div className="p-6 flex flex-col items-center justify-center bg-card/10">
+            <div className="h-48 w-48 md:h-56 md:w-56 overflow-hidden rounded-xl border border-border bg-card/40 shadow-inner">
+              <img
+                src={ProfilePic}
+                alt="Cara Encabo"
+                className="h-full w-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-105"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Right Column: Timeline Widget list (col-span-7) */}
+        <div className="md:col-span-7 border border-border/50 bg-card/40 backdrop-blur-sm rounded-2xl p-8 group hover:border-primary/30 transition-all duration-300">
+          <div className="relative border-l border-primary/20 ml-3 pl-6 space-y-8">
+            {timelineItems.map((item, idx) => (
+              <div key={idx} className="relative group select-none">
+                {/* Timeline dot */}
+                <span className="absolute -left-[30px] top-1.5 w-3.5 h-3.5 rounded-full border border-primary bg-background group-hover:bg-primary transition-all duration-300 shadow-[0_0_8px_hsl(var(--primary)/0.3)] group-hover:scale-110" />
+
+                <div className="text-[9px] font-mono text-primary font-bold uppercase tracking-wider">
+                  {item.step}
                 </div>
-                <h3 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
-                  {item.label}
-                </h3>
-                <p className="text-foreground font-bold mt-1">{item.value}</p>
-                <p className="text-sm text-muted-foreground mt-1">{item.sub}</p>
-                <p className="text-xs font-semibold text-primary mt-2">
-                  {item.extra}
+
+                <h4 className="text-base font-bold font-sans mt-0.5 text-foreground transition-colors group-hover:text-primary duration-300">
+                  {item.title}
+                </h4>
+
+                <p className="text-xs md:text-sm text-muted-foreground mt-1 leading-relaxed">
+                  {item.desc}
                 </p>
               </div>
             ))}
           </div>
+        </div>
 
-          <div className="space-y-4 text-muted-foreground leading-relaxed">
-            <p className="text-lg">
-              I’m a{" "}
-              <span className="text-foreground font-medium">
-                Full Stack Web Developer
-              </span>{" "}
-              with a keen eye for{" "}
-              <span className="text-foreground font-medium">UI/UX Design</span>.
-              I don't just write code; I craft digital experiences that are as
-              functional as they are beautiful.
-            </p>
-            <p>
-              When I’m away from my keyboard, you’ll likely find me lost in a
-              good book, climbing ranks in games, or chasing my next big
-              adventure outdoors.
-            </p>
-          </div>
-        </motion.div>
-
-        {/* Right Side: Image */}
-        <motion.div
-          initial={{ opacity: 0, x: 30 }}
-          animate={inView ? { opacity: 1, x: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="flex items-center justify-center"
-        >
-          <motion.div style={{ y }} className="relative group">
-            <div className="relative h-72 w-72 overflow-hidden rounded-2xl border border-border bg-card">
-              <img
-                src={ProfilePic}
-                alt="Cara Encabo"
-                className="h-full w-full object-cover grayscale transition-all duration-700 ease-in-out group-hover:grayscale-0 group-hover:scale-110"
-              />
-            </div>
-            <div className="absolute -inset-1 -z-10 rounded-2xl border-2 border-primary/30 transition-all duration-300 group-hover:translate-x-2 group-hover:translate-y-2 group-hover:border-primary/50" />
-            <div className="absolute -inset-4 -z-20 rounded-3xl bg-primary/5 blur-2xl transition-opacity duration-300 group-hover:bg-primary/10" />
-          </motion.div>
-        </motion.div>
       </div>
     </motion.section>
   );

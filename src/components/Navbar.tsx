@@ -68,24 +68,26 @@ const Navbar = ({ activeTab, onTabChange }: NavbarProps) => {
       initial={{ y: -80 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${
-        mobileOpen
+      className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${mobileOpen
           ? "bg-background"
           : "bg-background/80 backdrop-blur-xl border-b border-border/50"
-      }`}
+        }`}
     >
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24 flex items-center justify-between h-16 relative z-50">
         <motion.a
           href="#"
           whileHover="hover"
           initial="rest"
-          className="group flex items-center font-sans text-xl font-bold tracking-tight gap-1"
+          className="group font-mono text-xl font-bold tracking-tight"
         >
-          <span className="relative text-foreground transition-colors duration-300 group-hover:text-primary">
+          <span className="text-primary transition-transform duration-300 group-hover:-translate-x-0.5 inline-block">
+            &lt;
+          </span>
+          <span className="transition-colors duration-300 group-hover:text-primary">
             cara
           </span>
-          <span className="text-primary group-hover:rotate-12 transition-transform duration-300 inline-block">
-            ✨
+          <span className="text-primary transition-transform duration-300 group-hover:translate-x-0.5 inline-block">
+            /&gt;
           </span>
         </motion.a>
 
@@ -107,11 +109,10 @@ const Navbar = ({ activeTab, onTabChange }: NavbarProps) => {
                 />
               )}
               <span
-                className={`relative z-10 ${
-                  activeTab === item.id
+                className={`relative z-10 ${activeTab === item.id
                     ? "text-primary"
                     : "text-muted-foreground hover:text-foreground"
-                }`}
+                  }`}
               >
                 {item.label}
               </span>
@@ -175,20 +176,18 @@ const Navbar = ({ activeTab, onTabChange }: NavbarProps) => {
                     className="group relative flex items-center justify-center text-3xl font-bold tracking-tighter sm:text-4xl transition-colors"
                   >
                     <span
-                      className={`font-mono text-sm sm:text-base mr-4 transition-colors duration-300 ${
-                        activeTab === item.id
+                      className={`font-mono text-sm sm:text-base mr-4 transition-colors duration-300 ${activeTab === item.id
                           ? "text-primary"
                           : "text-primary/50 group-hover:text-primary"
-                      }`}
+                        }`}
                     >
                       0{i + 1}.
                     </span>
                     <span
-                      className={`relative transition-colors duration-300 ${
-                        activeTab === item.id
+                      className={`relative transition-colors duration-300 ${activeTab === item.id
                           ? "text-primary"
                           : "text-muted-foreground group-hover:text-foreground"
-                      }`}
+                        }`}
                     >
                       {item.label}
 

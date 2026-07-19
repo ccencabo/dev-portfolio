@@ -11,24 +11,32 @@ const TypeWriter = ({ words, className = "" }: TypeWriterProps) => {
   const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
-    const word = words[currentWordIndex];
-    const timeout = setTimeout(
-      () => {
-        if (!isDeleting) {
-          setCurrentText(word.slice(0, currentText.length + 1));
-          if (currentText.length === word.length) {
-            setTimeout(() => setIsDeleting(true), 2000);
-          }
+    const currentWord = words[currentWordIndex];
+
+    const isFullyTyped = currentText === currentWord;
+    const isFullyDeleted = currentText === "";
+
+    let typingSpeed = isDeleting ? 50 : 100;
+    if (isFullyTyped && !isDeleting) {
+      typingSpeed = 2000;
+    }
+
+    const timeout = setTimeout(() => {
+      if (!isDeleting) {
+        if (!isFullyTyped) {
+          setCurrentText(currentWord.slice(0, currentText.length + 1));
         } else {
-          setCurrentText(word.slice(0, currentText.length - 1));
-          if (currentText.length === 0) {
-            setIsDeleting(false);
-            setCurrentWordIndex((prev) => (prev + 1) % words.length);
-          }
+          setIsDeleting(true);
         }
-      },
-      isDeleting ? 50 : 100,
-    );
+      } else {
+        if (!isFullyDeleted) {
+          setCurrentText(currentWord.slice(0, currentText.length - 1));
+        } else {
+          setIsDeleting(false);
+          setCurrentWordIndex((prev) => (prev + 1) % words.length);
+        }
+      }
+    }, typingSpeed);
 
     return () => clearTimeout(timeout);
   }, [currentText, isDeleting, currentWordIndex, words]);

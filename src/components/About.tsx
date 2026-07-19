@@ -30,8 +30,16 @@ const About = () => {
     },
   ];
 
+  const opacity = useTransform(scrollYProgress, [0, 0.25, 0.75, 1], [0.3, 1, 1, 0.3]);
+  const scale = useTransform(scrollYProgress, [0, 0.25, 0.75, 1], [0.97, 1, 1, 0.97]);
+
   return (
-    <section id="about" className="section-padding max-w-6xl mx-auto" ref={ref}>
+    <motion.section
+      id="about"
+      className="section-padding max-w-6xl mx-auto"
+      ref={ref}
+      style={{ opacity, scale }}
+    >
       <TextReveal delay={0.1}>
         <h2 className="text-3xl md:text-4xl font-bold mb-4">
           Get to know me<span className="text-primary">.</span>
@@ -107,7 +115,7 @@ const About = () => {
           </motion.div>
         </motion.div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 

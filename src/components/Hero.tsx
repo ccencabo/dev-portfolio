@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 import {
   Github,
   Linkedin,
@@ -11,6 +12,7 @@ import {
   FileText,
   Download,
   Eye,
+  ChevronDown,
 } from "lucide-react";
 import TypeWriter from "./TypeWriter";
 import MagneticButton from "./MagneticButton";
@@ -34,12 +36,28 @@ const item = {
 };
 
 const Hero = ({ onNavigate }: HeroProps) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"],
+  });
+
+  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+  const scale = useTransform(scrollYProgress, [0, 0.8], [1, 0.96]);
+  const y = useTransform(scrollYProgress, [0, 1], [0, 100]);
+  const indicatorOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0]);
+
   return (
-    <section className="relative min-h-[calc(100vh-4rem)] flex items-center overflow-hidden">
+    <section
+      ref={containerRef}
+      id="home"
+      className="relative min-h-screen flex items-center overflow-hidden pt-16"
+    >
       <motion.div
         variants={container}
         initial="initial"
         animate="animate"
+        style={{ opacity, scale, y }}
         className="relative z-10 section-padding max-w-6xl mx-auto w-full"
       >
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 auto-rows-auto">
@@ -282,6 +300,25 @@ const Hero = ({ onNavigate }: HeroProps) => {
             </div>
           </motion.div>
         </div>
+      </motion.div>
+
+      {/* Scroll Down Indicator */}
+      <motion.div
+        style={{ opacity: indicatorOpacity }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.5, duration: 0.8 }}
+        onClick={() => onNavigate?.("about")}
+        className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 cursor-pointer text-muted-foreground hover:text-primary transition-colors z-20 group"
+      >
+        <span className="font-sans text-[10px] uppercase tracking-widest font-bold opacity-60 group-hover:opacity-100 transition-opacity">
+          Scroll down
+        </span>
+        <ChevronDown
+          size={16}
+          className="animate-bounce"
+          style={{ animationDuration: "2s" }}
+        />
       </motion.div>
     </section>
   );

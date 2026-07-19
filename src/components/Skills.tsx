@@ -1,4 +1,4 @@
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { useRef, useState } from "react";
 import TextReveal from "./TextReveal";
 
@@ -188,11 +188,20 @@ const Skills = () => {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
 
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+
+  const opacity = useTransform(scrollYProgress, [0, 0.25, 0.75, 1], [0.3, 1, 1, 0.3]);
+  const scale = useTransform(scrollYProgress, [0, 0.25, 0.75, 1], [0.97, 1, 1, 0.97]);
+
   return (
-    <section
+    <motion.section
       id="skills"
       className="section-padding max-w-6xl mx-auto"
       ref={ref}
+      style={{ opacity, scale }}
     >
       <TextReveal delay={0.1}>
         <h2 className="text-3xl md:text-4xl font-bold mb-4">
@@ -206,7 +215,7 @@ const Skills = () => {
           <SkillCard key={cat.title} category={cat} index={i} inView={inView} />
         ))}
       </div>
-    </section>
+    </motion.section>
   );
 };
 

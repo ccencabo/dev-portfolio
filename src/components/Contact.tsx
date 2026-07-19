@@ -1,4 +1,4 @@
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { Mail, ArrowUpRight } from "lucide-react";
 import MagneticButton from "./MagneticButton";
@@ -8,11 +8,20 @@ const Contact = () => {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
 
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+
+  const opacity = useTransform(scrollYProgress, [0, 0.25, 0.75, 1], [0.3, 1, 1, 0.3]);
+  const scale = useTransform(scrollYProgress, [0, 0.25, 0.75, 1], [0.97, 1, 1, 0.97]);
+
   return (
-    <section
+    <motion.section
       id="contact"
       className="section-padding max-w-3xl mx-auto text-center relative"
       ref={ref}
+      style={{ opacity, scale }}
     >
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
         <div
@@ -60,7 +69,7 @@ const Contact = () => {
           </MagneticButton>
         </motion.div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 

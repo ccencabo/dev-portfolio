@@ -5,7 +5,7 @@ import TextReveal from "./TextReveal";
 const skillCategories = [
   {
     title: "Frontend",
-    color: "175 80% 50%",
+    color: "343 70% 70%",
     skills: [
       "Javascript",
       "HTML/CSS",
@@ -19,12 +19,12 @@ const skillCategories = [
   },
   {
     title: "Backend",
-    color: "195 80% 60%",
+    color: "270 70% 80%",
     skills: ["PHP", "Laravel", "Java", "MySQL", "REST APIs"],
   },
   {
     title: "Tools & Other Skills",
-    color: "160 70% 45%",
+    color: "25 80% 75%",
     skills: [
       "UI/UX Design",
       "Git",
@@ -79,22 +79,22 @@ const SkillCard = ({
         >
           <div>
             <div
-              className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 font-mono text-lg font-bold"
+              className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 font-sans text-lg font-bold"
               style={{
                 background: `hsl(${category.color} / 0.12)`,
                 color: `hsl(${category.color})`,
                 border: `1px solid hsl(${category.color} / 0.25)`,
               }}
             >
-              {index === 0 ? "</>" : index === 1 ? "{}" : "⚙"}
+              {index === 0 ? "✨" : index === 1 ? "🌸" : "💫"}
             </div>
             <h3
-              className="text-xl md:text-2xl font-bold font-mono mb-2"
+              className="text-xl md:text-2xl font-bold font-sans mb-2"
               style={{ color: `hsl(${category.color})` }}
             >
               {category.title}
             </h3>
-            <p className="text-sm text-muted-foreground font-mono">
+            <p className="text-sm text-muted-foreground font-sans font-medium">
               {category.skills.length} technologies
             </p>
           </div>
@@ -103,7 +103,7 @@ const SkillCard = ({
             {category.skills.slice(0, 3).map((skill) => (
               <span
                 key={skill}
-                className="text-xs font-mono px-3 py-1 rounded-full border"
+                className="text-xs font-sans font-semibold px-3 py-1 rounded-full border"
                 style={{
                   borderColor: `hsl(${category.color} / 0.25)`,
                   color: `hsl(${category.color} / 0.8)`,
@@ -114,7 +114,7 @@ const SkillCard = ({
               </span>
             ))}
             <span
-              className="text-xs font-mono px-3 py-1 rounded-full border"
+              className="text-xs font-sans font-semibold px-3 py-1 rounded-full border"
               style={{
                 borderColor: `hsl(${category.color} / 0.15)`,
                 color: `hsl(${category.color} / 0.5)`,
@@ -124,7 +124,7 @@ const SkillCard = ({
             </span>
           </div>
 
-          <p className="text-[10px] font-mono mt-4 tracking-wider uppercase opacity-40">
+          <p className="text-[10px] font-sans font-bold mt-4 tracking-wider uppercase opacity-40">
             click to flip →
           </p>
         </div>
@@ -140,7 +140,7 @@ const SkillCard = ({
           }}
         >
           <h4
-            className="text-lg font-bold font-mono mb-4 shrink-0"
+            className="text-lg font-bold font-sans mb-4 shrink-0"
             style={{ color: `hsl(${category.color})` }}
           >
             {category.title}
@@ -151,7 +151,7 @@ const SkillCard = ({
               {category.skills.map((skill) => (
                 <motion.div
                   key={skill}
-                  className="flex items-center justify-center rounded-xl border px-2 py-3 font-mono text-[12px] text-center transition-all"
+                  className="flex items-center justify-center rounded-xl border px-2 py-3 font-sans font-semibold text-[12px] text-center transition-all"
                   style={{
                     borderColor:
                       hoveredSkill === skill
@@ -175,7 +175,7 @@ const SkillCard = ({
             </div>
           </div>
 
-          <p className="text-[10px] font-mono mt-4 tracking-wider uppercase opacity-40 shrink-0">
+          <p className="text-[10px] font-sans font-bold mt-4 tracking-wider uppercase opacity-40 shrink-0">
             ← flip back
           </p>
         </div>

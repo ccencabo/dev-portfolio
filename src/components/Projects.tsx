@@ -12,7 +12,7 @@ const projects = [
     github: "#",
     live: "#",
     image: "🛒",
-    color: "from-cyan-500/10 to-blue-500/10",
+    color: "from-rose-400/15 to-amber-200/15",
   },
   {
     title: "Task Management App",
@@ -22,7 +22,7 @@ const projects = [
     github: "#",
     live: "#",
     image: "📋",
-    color: "from-purple-500/10 to-pink-500/10",
+    color: "from-fuchsia-400/15 to-pink-300/15",
   },
   {
     title: "AI Chat Interface",
@@ -32,7 +32,7 @@ const projects = [
     github: "#",
     live: "#",
     image: "🤖",
-    color: "from-emerald-500/10 to-teal-500/10",
+    color: "from-violet-400/15 to-indigo-300/15",
   },
 ];
 
@@ -62,13 +62,13 @@ const ProjectCard = ({ project, index, targetScale }: any) => {
           scale,
           top: `calc(-5% + ${index * 25}px)`,
         }}
-        className="glass-card relative w-full max-w-5xl h-[500px] md:h-[600px] p-8 md:p-12 overflow-hidden flex flex-col justify-between border border-white/10 shadow-2xl bg-background/95 backdrop-blur-xl"
+        className="glass-card relative w-full max-w-5xl h-[500px] md:h-[600px] p-8 md:p-12 overflow-hidden flex flex-col justify-between border border-border/30 shadow-2xl bg-background/95 backdrop-blur-xl"
       >
         <div
           className={`absolute inset-0 bg-gradient-to-br ${project.color} -z-10`}
         />
 
-        <div className="absolute top-4 right-8 font-mono text-8xl font-bold opacity-[0.03] select-none">
+        <div className="absolute top-4 right-8 font-sans text-8xl font-bold opacity-[0.03] select-none">
           0{index + 1}
         </div>
 
@@ -89,7 +89,7 @@ const ProjectCard = ({ project, index, targetScale }: any) => {
               {project.tags.map((tag: string) => (
                 <span
                   key={tag}
-                  className="text-xs font-mono px-3 py-1 rounded-full bg-primary/10 text-primary border border-primary/20"
+                  className="text-xs font-sans font-semibold px-3 py-1 rounded-full bg-primary/10 text-primary border border-primary/20"
                 >
                   {tag}
                 </span>
@@ -152,13 +152,13 @@ const Projects = () => {
       </div>
 
       {/* Other projects grid */}
-      <div className="relative z-20 pt-10 border-t border-white/5 bg-background">
+      <div className="relative z-20 pt-10 border-t border-border/30 bg-background">
         <motion.h3
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="text-center font-mono text-xl text-muted-foreground mb-12"
+          className="text-center font-sans font-bold text-xl text-muted-foreground mb-12"
         >
           Other Noteworthy Projects
         </motion.h3>
@@ -178,14 +178,14 @@ const Projects = () => {
                 size={32}
                 className="text-primary mb-4 group-hover:rotate-[-5deg] transition-transform"
               />
-              <h4 className="font-mono text-lg font-semibold mb-3 group-hover:text-primary transition-colors">
+              <h4 className="font-sans text-lg font-bold mb-3 group-hover:text-primary transition-colors">
                 {p.title}
               </h4>
               <div className="flex flex-wrap gap-2">
                 {p.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="text-xs font-mono text-muted-foreground bg-white/5 px-2 py-1 rounded"
+                    className="text-xs font-sans font-semibold text-muted-foreground bg-white/5 border border-border/20 px-2 py-1 rounded-full"
                   >
                     {tag}
                   </span>

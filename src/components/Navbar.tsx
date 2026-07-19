@@ -79,25 +79,14 @@ const Navbar = ({ activeTab, onTabChange }: NavbarProps) => {
           href="#"
           whileHover="hover"
           initial="rest"
-          className="group flex items-center font-mono text-xl font-bold tracking-tight"
+          className="group flex items-center font-sans text-xl font-bold tracking-tight gap-1"
         >
-          <motion.span
-            variants={{ rest: { x: 0 }, hover: { x: -2 } }}
-            className="text-primary opacity-60 transition-opacity group-hover:opacity-100"
-          >
-            &lt;
-          </motion.span>
-
-          <span className="relative mx-1 text-foreground transition-colors duration-300 group-hover:text-primary">
+          <span className="relative text-foreground transition-colors duration-300 group-hover:text-primary">
             cara
           </span>
-
-          <motion.span
-            variants={{ rest: { x: 0 }, hover: { x: 2 } }}
-            className="ml-1 text-primary opacity-60 transition-opacity group-hover:opacity-100"
-          >
-            /&gt;
-          </motion.span>
+          <span className="text-primary group-hover:rotate-12 transition-transform duration-300 inline-block">
+            ✨
+          </span>
         </motion.a>
 
         <div className="hidden md:flex items-center gap-1 p-1 rounded-full border border-border/50 bg-card/60 backdrop-blur-sm">
@@ -105,7 +94,7 @@ const Navbar = ({ activeTab, onTabChange }: NavbarProps) => {
             <button
               key={item.id}
               onClick={() => onTabChange(item.id)}
-              className="relative px-4 py-1.5 font-mono text-sm transition-colors duration-300 rounded-full"
+              className="relative px-4 py-1.5 font-sans font-medium text-sm transition-colors duration-300 rounded-full"
             >
               {activeTab === item.id && (
                 <motion.div

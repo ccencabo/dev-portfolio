@@ -19,7 +19,7 @@ const Footer = () => {
           </a>
         ))}
       </div>
-      <p className="font-mono text-xs text-muted-foreground/60">
+      <p className="font-sans text-xs text-muted-foreground/60">
         © {new Date().getFullYear()} All rights reserved.
       </p>
     </footer>

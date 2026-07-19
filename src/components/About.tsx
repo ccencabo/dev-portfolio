@@ -51,9 +51,9 @@ const About = () => {
             {infoItems.map((item, index) => (
               <div
                 key={index}
-                className="p-5 rounded-xl border border-border bg-card/50 hover:bg-card transition-all group"
+                className="p-5 rounded-2xl border border-border bg-card/50 hover:bg-card transition-all group"
               >
-                <div className="mb-3 p-2 w-fit rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors">
+                <div className="mb-3 p-2.5 w-fit rounded-xl bg-primary/10 group-hover:bg-primary/20 transition-colors">
                   {item.icon}
                 </div>
                 <h3 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">

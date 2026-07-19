@@ -36,23 +36,13 @@ const item = {
 const Hero = ({ onNavigate }: HeroProps) => {
   return (
     <section className="relative min-h-[calc(100vh-4rem)] flex items-center overflow-hidden">
-      <div className="absolute inset-0 opacity-[0.03]">
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `linear-gradient(hsl(var(--primary)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--primary)) 1px, transparent 1px)`,
-            backgroundSize: "60px 60px",
-          }}
-        />
-      </div>
-
       <motion.div
         variants={container}
         initial="initial"
         animate="animate"
         className="relative z-10 section-padding max-w-6xl mx-auto w-full"
       >
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 auto-rows-auto">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 auto-rows-auto">
           <motion.div
             variants={item}
             className="md:col-span-2 md:row-span-2 glass-card p-8 flex flex-col justify-center relative overflow-hidden group"
@@ -67,7 +57,7 @@ const Hero = ({ onNavigate }: HeroProps) => {
             <div className="relative">
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-primary/20 bg-primary/5 mb-4">
                 <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-                <span className="font-mono text-xs text-primary">
+                <span className="font-sans font-semibold text-[10px] tracking-wider uppercase text-primary">
                   Available for work
                 </span>
               </div>
@@ -79,17 +69,17 @@ const Hero = ({ onNavigate }: HeroProps) => {
                 I build{" "}
                 <TypeWriter
                   words={[
-                    "web apps.",
-                    "interfaces.",
-                    "experiences.",
-                    "the future.",
+                    "web apps. ✨",
+                    "interfaces. 🌸",
+                    "experiences. 💕",
+                    "the future. 💫",
                   ]}
                   className="text-primary"
                 />
               </h2>
               <p className="text-muted-foreground text-sm md:text-base max-w-md leading-relaxed">
-                A full-stack developer specializing in building exceptional
-                digital experiences.
+                A full-stack developer specializing in building exceptional,
+                delightful digital experiences.
               </p>
             </div>
           </motion.div>
@@ -98,7 +88,7 @@ const Hero = ({ onNavigate }: HeroProps) => {
           <motion.div
             variants={item}
             onClick={() => onNavigate?.("about")}
-            className="glass-card p-6 cursor-pointer group hover:border-primary/40 transition-all duration-300 relative overflow-hidden"
+            className="glass-card p-6 cursor-pointer group hover:border-primary/40 hover:-translate-y-1 transition-all duration-300 relative overflow-hidden"
           >
             <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             <div className="relative">
@@ -109,7 +99,7 @@ const Hero = ({ onNavigate }: HeroProps) => {
                   className="text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all"
                 />
               </div>
-              <h3 className="font-mono font-semibold text-sm mb-1 group-hover:text-primary transition-colors">
+              <h3 className="font-sans font-bold text-sm mb-1 group-hover:text-primary transition-colors">
                 About Me
               </h3>
               <p className="text-xs text-muted-foreground leading-relaxed">
@@ -122,7 +112,7 @@ const Hero = ({ onNavigate }: HeroProps) => {
           <motion.div
             variants={item}
             onClick={() => onNavigate?.("skills")}
-            className="glass-card p-6 cursor-pointer group hover:border-primary/40 transition-all duration-300 relative overflow-hidden"
+            className="glass-card p-6 cursor-pointer group hover:border-primary/40 hover:-translate-y-1 transition-all duration-300 relative overflow-hidden"
           >
             <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             <div className="relative">
@@ -133,14 +123,14 @@ const Hero = ({ onNavigate }: HeroProps) => {
                   className="text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all"
                 />
               </div>
-              <h3 className="font-mono font-semibold text-sm mb-1 group-hover:text-primary transition-colors">
+              <h3 className="font-sans font-bold text-sm mb-1 group-hover:text-primary transition-colors">
                 Skills
               </h3>
               <div className="flex flex-wrap gap-1 mt-2">
                 {["React", "TypeScript", "Node.js"].map((t) => (
                   <span
                     key={t}
-                    className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20"
+                    className="text-[10px] font-sans font-semibold px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20"
                   >
                     {t}
                   </span>
@@ -153,14 +143,14 @@ const Hero = ({ onNavigate }: HeroProps) => {
           <motion.div
             variants={item}
             onClick={() => onNavigate?.("projects")}
-            className="md:col-span-2 glass-card p-6 cursor-pointer group hover:border-primary/40 transition-all duration-300 relative overflow-hidden"
+            className="md:col-span-2 glass-card p-6 cursor-pointer group hover:border-primary/40 hover:-translate-y-1 transition-all duration-300 relative overflow-hidden"
           >
             <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             <div className="relative">
               <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center gap-2">
                   <Folder size={20} className="text-primary" />
-                  <h3 className="font-mono font-semibold text-sm group-hover:text-primary transition-colors">
+                  <h3 className="font-sans font-bold text-sm group-hover:text-primary transition-colors">
                     Featured Projects
                   </h3>
                 </div>
@@ -177,10 +167,10 @@ const Hero = ({ onNavigate }: HeroProps) => {
                 ].map((p) => (
                   <div
                     key={p.title}
-                    className="p-3 rounded-lg bg-secondary/50 border border-border/30 text-center"
+                    className="p-3 rounded-xl bg-secondary/50 border border-border/30 text-center"
                   >
                     <span className="text-xl block mb-1">{p.emoji}</span>
-                    <span className="text-xs font-mono text-muted-foreground">
+                    <span className="text-[10px] font-sans font-semibold text-muted-foreground">
                       {p.title}
                     </span>
                   </div>
@@ -194,7 +184,7 @@ const Hero = ({ onNavigate }: HeroProps) => {
             variants={item}
             className="glass-card p-6 flex flex-col justify-between"
           >
-            <p className="font-mono text-xs text-muted-foreground mb-3">
+            <p className="font-sans font-semibold text-[10px] tracking-wider uppercase text-muted-foreground mb-3">
               Connect
             </p>
             <div className="flex items-center gap-3">
@@ -212,7 +202,7 @@ const Hero = ({ onNavigate }: HeroProps) => {
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-2.5 rounded-lg border border-border/50 text-muted-foreground hover:text-primary hover:border-primary/50 transition-all duration-300 hover:shadow-[0_0_20px_hsl(var(--primary)/0.2)] block"
+                  className="p-2.5 rounded-xl border border-border/50 text-muted-foreground hover:text-primary hover:border-primary/50 transition-all duration-300 hover:shadow-[0_0_20px_hsl(var(--primary)/0.2)] block"
                 >
                   <Icon size={16} />
                 </MagneticButton>
@@ -223,7 +213,7 @@ const Hero = ({ onNavigate }: HeroProps) => {
           {/* Resume Card */}
           <motion.div
             variants={item}
-            className="glass-card p-6 group hover:border-primary/40 transition-all duration-300 relative overflow-hidden"
+            className="glass-card p-6 group hover:border-primary/40 hover:-translate-y-1 transition-all duration-300 relative overflow-hidden"
           >
             <a
               href="/resume.pdf"
@@ -259,7 +249,7 @@ const Hero = ({ onNavigate }: HeroProps) => {
                   </a>
                 </div>
               </div>
-              <h3 className="font-mono font-semibold text-sm mb-1 group-hover:text-primary transition-colors">
+              <h3 className="font-sans font-bold text-sm mb-1 group-hover:text-primary transition-colors">
                 Resume
               </h3>
               <p className="text-xs text-muted-foreground leading-relaxed">
@@ -272,7 +262,7 @@ const Hero = ({ onNavigate }: HeroProps) => {
           <motion.div
             variants={item}
             onClick={() => onNavigate?.("contact")}
-            className="md:col-span-2 glass-card p-6 cursor-pointer group hover:border-primary/40 transition-all duration-300 bg-gradient-to-br from-primary/10 to-transparent relative overflow-hidden"
+            className="md:col-span-2 glass-card p-6 cursor-pointer group hover:border-primary/40 hover:-translate-y-1 transition-all duration-300 bg-gradient-to-br from-primary/10 to-transparent relative overflow-hidden"
           >
             <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             <div className="relative">
@@ -283,7 +273,7 @@ const Hero = ({ onNavigate }: HeroProps) => {
                   className="text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all"
                 />
               </div>
-              <h3 className="font-mono font-semibold text-sm mb-1 group-hover:text-primary transition-colors">
+              <h3 className="font-sans font-bold text-sm mb-1 group-hover:text-primary transition-colors">
                 Let's Talk
               </h3>
               <p className="text-xs text-muted-foreground">

@@ -1,115 +1,94 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useState } from "react";
 
 const ParticleField = () => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+  // We can include a subtle grid of floating sparkles too!
+  const [sparkles, setSparkles] = useState<Array<{ id: number; x: number; y: number; size: number; delay: number }>>([]);
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    let animationId: number;
-    let particles: Array<{
-      x: number;
-      y: number;
-      vx: number;
-      vy: number;
-      size: number;
-      opacity: number;
-      pulse: number;
-    }> = [];
-
-    const resize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    };
-    resize();
-    window.addEventListener("resize", resize);
-
-    const PARTICLE_COUNT = 80;
-    for (let i = 0; i < PARTICLE_COUNT; i++) {
-      particles.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.4,
-        vy: (Math.random() - 0.5) * 0.4,
-        size: Math.random() * 2 + 0.5,
-        opacity: Math.random() * 0.5 + 0.1,
-        pulse: Math.random() * Math.PI * 2,
-      });
-    }
-
-    let mouse = { x: -1000, y: -1000 };
-    const onMouseMove = (e: MouseEvent) => {
-      mouse.x = e.clientX;
-      mouse.y = e.clientY;
-    };
-    window.addEventListener("mousemove", onMouseMove);
-
-    const animate = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      particles.forEach((p, i) => {
-        p.pulse += 0.02;
-        p.x += p.vx;
-        p.y += p.vy;
-
-        if (p.x < 0) p.x = canvas.width;
-        if (p.x > canvas.width) p.x = 0;
-        if (p.y < 0) p.y = canvas.height;
-        if (p.y > canvas.height) p.y = 0;
-
-        // Mouse repulsion
-        const dx = p.x - mouse.x;
-        const dy = p.y - mouse.y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < 150) {
-          p.x += dx * 0.02;
-          p.y += dy * 0.02;
-        }
-
-        const glowOpacity = p.opacity * (0.7 + 0.3 * Math.sin(p.pulse));
-
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fillStyle = `hsla(175, 80%, 50%, ${glowOpacity})`;
-        ctx.fill();
-
-        // Draw connections
-        for (let j = i + 1; j < particles.length; j++) {
-          const p2 = particles[j];
-          const ddx = p.x - p2.x;
-          const ddy = p.y - p2.y;
-          const d = Math.sqrt(ddx * ddx + ddy * ddy);
-          if (d < 120) {
-            ctx.beginPath();
-            ctx.moveTo(p.x, p.y);
-            ctx.lineTo(p2.x, p2.y);
-            ctx.strokeStyle = `hsla(175, 80%, 50%, ${0.08 * (1 - d / 120)})`;
-            ctx.lineWidth = 0.5;
-            ctx.stroke();
-          }
-        }
-      });
-
-      animationId = requestAnimationFrame(animate);
-    };
-    animate();
-
-    return () => {
-      cancelAnimationFrame(animationId);
-      window.removeEventListener("resize", resize);
-      window.removeEventListener("mousemove", onMouseMove);
-    };
+    // Generate a few tiny ambient sparkles in the background
+    const list = Array.from({ length: 15 }).map((_, i) => ({
+      id: i,
+      x: Math.random() * 100,
+      y: Math.random() * 100,
+      size: Math.random() * 4 + 2,
+      delay: Math.random() * 5,
+    }));
+    setSparkles(list);
   }, []);
 
   return (
-    <canvas
-      ref={canvasRef}
-      className="fixed inset-0 z-0 pointer-events-none"
-      style={{ opacity: 0.6 }}
-    />
+    <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
+      {/* Styles for organic aurora animation */}
+      <style>{`
+        @keyframes aurora-blob-1 {
+          0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+          33% { transform: translate(8vw, -10vh) scale(1.15) rotate(120deg); }
+          66% { transform: translate(-5vw, 6vh) scale(0.9) rotate(240deg); }
+        }
+        @keyframes aurora-blob-2 {
+          0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+          40% { transform: translate(-10vw, 8vh) scale(0.85) rotate(-90deg); }
+          75% { transform: translate(6vw, -8vh) scale(1.1) rotate(180deg); }
+        }
+        @keyframes aurora-blob-3 {
+          0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+          50% { transform: translate(12vw, 10vh) scale(1.05) rotate(180deg); }
+        }
+        @keyframes ambient-sparkle {
+          0%, 100% { opacity: 0.1; transform: scale(0.8); }
+          50% { opacity: 0.6; transform: scale(1.2) rotate(15deg); }
+        }
+        .aurora-blob {
+          will-change: transform;
+        }
+      `}</style>
+
+      {/* Aurora Blob 1 - Rose Gold */}
+      <div
+        className="aurora-blob absolute top-[-10%] left-[-15%] w-[60vw] h-[60vw] md:w-[45vw] md:h-[45vw] rounded-full filter blur-[100px] md:blur-[140px] opacity-[0.25] dark:opacity-[0.16]"
+        style={{
+          background: "radial-gradient(circle, hsl(343, 70%, 78%) 0%, transparent 70%)",
+          animation: "aurora-blob-1 25s ease-in-out infinite",
+        }}
+      />
+
+      {/* Aurora Blob 2 - Lavender */}
+      <div
+        className="aurora-blob absolute bottom-[-10%] right-[-10%] w-[70vw] h-[70vw] md:w-[50vw] md:h-[50vw] rounded-full filter blur-[100px] md:blur-[140px] opacity-[0.25] dark:opacity-[0.18]"
+        style={{
+          background: "radial-gradient(circle, hsl(270, 75%, 85%) 0%, transparent 70%)",
+          animation: "aurora-blob-2 30s ease-in-out infinite",
+        }}
+      />
+
+      {/* Aurora Blob 3 - Soft Peach */}
+      <div
+        className="aurora-blob absolute top-[25%] right-[10%] w-[55vw] h-[55vw] md:w-[40vw] md:h-[40vw] rounded-full filter blur-[100px] md:blur-[140px] opacity-[0.18] dark:opacity-[0.12]"
+        style={{
+          background: "radial-gradient(circle, hsl(25, 80%, 75%) 0%, transparent 70%)",
+          animation: "aurora-blob-3 28s ease-in-out infinite",
+        }}
+      />
+
+      {/* Ambient background sparkles */}
+      <div className="absolute inset-0 opacity-40 dark:opacity-20">
+        {sparkles.map((sp) => (
+          <div
+            key={sp.id}
+            className="absolute rounded-full bg-primary"
+            style={{
+              left: `${sp.x}%`,
+              top: `${sp.y}%`,
+              width: `${sp.size}px`,
+              height: `${sp.size}px`,
+              boxShadow: "0 0 10px hsl(var(--primary))",
+              animation: `ambient-sparkle 6s ease-in-out infinite`,
+              animationDelay: `${sp.delay}s`,
+            }}
+          />
+        ))}
+      </div>
+    </div>
   );
 };
 

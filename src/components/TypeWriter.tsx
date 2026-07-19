@@ -12,6 +12,8 @@ const TypeWriter = ({ words, className = "" }: TypeWriterProps) => {
 
   useEffect(() => {
     const currentWord = words[currentWordIndex];
+    const currentWordChars = Array.from(currentWord);
+    const currentTextChars = Array.from(currentText);
 
     const isFullyTyped = currentText === currentWord;
     const isFullyDeleted = currentText === "";
@@ -24,13 +26,13 @@ const TypeWriter = ({ words, className = "" }: TypeWriterProps) => {
     const timeout = setTimeout(() => {
       if (!isDeleting) {
         if (!isFullyTyped) {
-          setCurrentText(currentWord.slice(0, currentText.length + 1));
+          setCurrentText(currentWordChars.slice(0, currentTextChars.length + 1).join(""));
         } else {
           setIsDeleting(true);
         }
       } else {
         if (!isFullyDeleted) {
-          setCurrentText(currentWord.slice(0, currentText.length - 1));
+          setCurrentText(currentWordChars.slice(0, currentTextChars.length - 1).join(""));
         } else {
           setIsDeleting(false);
           setCurrentWordIndex((prev) => (prev + 1) % words.length);

@@ -16,10 +16,10 @@ const Contact = () => {
     >
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
         <div
-          className="w-[500px] h-[500px] rounded-full opacity-[0.04]"
+          className="w-[500px] h-[500px] rounded-full opacity-[0.05] dark:opacity-[0.03]"
           style={{
             background:
-              "radial-gradient(circle, hsl(175 80% 50%), transparent 70%)",
+              "radial-gradient(circle, hsl(var(--primary)), transparent 70%)",
           }}
         />
       </div>
@@ -36,7 +36,7 @@ const Contact = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-muted-foreground text-lg mb-10 leading-relaxed"
+          className="text-muted-foreground text-lg mb-10 leading-relaxed font-sans"
         >
           I'm currently open to new opportunities. Whether you have a project in
           mind, a question, or just want to say hi — my inbox is always open.
@@ -49,7 +49,7 @@ const Contact = () => {
         >
           <MagneticButton
             href="mailto:hello@example.com"
-            className="inline-flex items-center gap-3 px-8 py-4 rounded-xl border border-primary/50 text-primary font-mono text-lg hover:bg-primary/10 hover:shadow-[0_0_30px_hsl(175_80%_50%/0.2)] transition-all duration-300 group"
+            className="inline-flex items-center gap-3 px-8 py-4 rounded-2xl border border-primary/50 text-primary font-sans font-bold text-lg hover:bg-primary/10 hover:shadow-[0_0_30px_hsl(var(--primary)/0.2)] transition-all duration-300 group"
           >
             <Mail size={20} />
             Say Hello

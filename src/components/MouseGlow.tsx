@@ -18,7 +18,7 @@ const MouseGlow = () => {
         width: 400,
         height: 400,
         background:
-          "radial-gradient(circle, hsla(175, 80%, 50%, 0.06) 0%, transparent 70%)",
+          "radial-gradient(circle, hsla(var(--primary) / 0.07) 0%, transparent 70%)",
         borderRadius: "50%",
       }}
     />

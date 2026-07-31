@@ -5,42 +5,43 @@ import TextReveal from "./TextReveal";
 
 const projects = [
   {
-    title: "E-Commerce Platform",
+    title: "Brewed Tales",
     description:
-      "A full-featured online store with cart, payments, and admin dashboard. Built with React, Node.js, and Stripe integration.",
-    tags: ["React", "Node.js", "Stripe", "PostgreSQL"],
+      "A playful book-discovery and reading companion with a cozy, interactive interface. Features community shelf sharing, curated recommendations, a 'blind date' style discovery flow, and AI integration for book summaries to make finding your next book fun and inviting.",
+    tags: ["React", "Next.js", "Google Books API", "AI Integration"],
     github: "#",
     live: "#",
-    image: "🛒",
-    color: "from-rose-400/15 to-amber-200/15",
+    image: "📖",
+    color: "from-amber-400/15 to-orange-200/15",
   },
   {
-    title: "Task Management App",
+    title: "DataMate",
     description:
-      "Real-time collaborative task manager with drag-and-drop, team boards, and activity tracking.",
-    tags: ["TypeScript", "Next.js", "WebSocket", "Prisma"],
+      "A team capstone project streamlining data management for MSMEs. Automates spreadsheet uploads, data cleaning, normalization, and inconsistency detection, converting sheets into a secure database with SQL exports.",
+    tags: ["Java", "TypeScript", "React", "MySQL", "Tailwind CSS"],
     github: "#",
     live: "#",
-    image: "📋",
-    color: "from-fuchsia-400/15 to-pink-300/15",
+    image: "📊",
+    picture: "/DataMate-Home.png",
+    color: "from-blue-400/15 to-indigo-300/15",
   },
   {
-    title: "AI Chat Interface",
+    title: "Arangkada",
     description:
-      "Sleek conversational UI for interacting with language models, featuring markdown rendering and code highlighting.",
-    tags: ["React", "Tailwind", "OpenAI", "Streaming"],
+      "A web-based PUV (Public Utility Vehicle) rental management system connecting operators and professional drivers. Operators can list fleets, track payments, and monitor driver assignments online, while drivers can search, apply to lease vehicles, and process rental payments.",
+    tags: ["Java", "TypeScript", "React", "MySQL", "Tailwind CSS"],
     github: "#",
     live: "#",
-    image: "🤖",
+    image: "🚙",
+    picture: "/Arangkada-Home.png",
     color: "from-violet-400/15 to-indigo-300/15",
   },
 ];
 
 const otherProjects = [
-  { title: "Portfolio v1", tags: ["HTML", "CSS", "JS"] },
-  { title: "Weather Dashboard", tags: ["React", "API", "Charts"] },
-  { title: "CLI Tool", tags: ["Node.js", "Commander"] },
-  { title: "Blog CMS", tags: ["Next.js", "MDX", "Vercel"] },
+  { title: "Coming Soon", tags: [] },
+  { title: "Coming Soon", tags: [] },
+  { title: "Coming Soon", tags: [] },
 ];
 
 const ProjectCard = ({ project, index, targetScale }: any) => {
@@ -62,7 +63,7 @@ const ProjectCard = ({ project, index, targetScale }: any) => {
           scale,
           top: `calc(-5% + ${index * 25}px)`,
         }}
-        className="glass-card relative w-full max-w-5xl h-[500px] md:h-[600px] p-8 md:p-12 overflow-hidden flex flex-col justify-between border border-border/30 shadow-2xl bg-background/95 backdrop-blur-xl"
+        className="glass-card relative w-full max-w-3xl h-[580px] p-6 md:p-8 overflow-hidden flex flex-col justify-between border border-border/30 shadow-2xl bg-background/95 backdrop-blur-xl"
       >
         <div
           className={`absolute inset-0 bg-gradient-to-br ${project.color} -z-10`}
@@ -72,50 +73,63 @@ const ProjectCard = ({ project, index, targetScale }: any) => {
           0{index + 1}
         </div>
 
-        <div className="flex flex-col md:flex-row h-full gap-12 items-center">
-          <div className="flex-1 space-y-6 relative z-20">
-            <div className="space-y-2">
-              <span className="text-4xl">{project.image}</span>
-              <h3 className="text-3xl md:text-5xl font-bold tracking-tight">
-                {project.title}
-              </h3>
-            </div>
-
-            <p className="text-muted-foreground text-lg leading-relaxed max-w-md">
-              {project.description}
-            </p>
-
-            <div className="flex flex-wrap gap-2">
-              {project.tags.map((tag: string) => (
-                <span
-                  key={tag}
-                  className="text-xs font-sans font-semibold px-3 py-1 rounded-full bg-primary/10 text-primary border border-primary/20"
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-
-            <div className="flex gap-4 pt-4">
-              <a
-                href={project.github}
-                className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 hover:bg-white/10 transition-colors border border-white/10"
-              >
-                <Github size={18} />{" "}
-                <span className="text-sm font-medium">Code</span>
-              </a>
-              <a
-                href={project.live}
-                className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 hover:bg-white/10 transition-colors border border-white/10"
-              >
-                <span className="text-sm font-medium">Live Demo</span>{" "}
-                <ArrowUpRight size={18} />
-              </a>
-            </div>
+        <div className="flex flex-col h-full gap-5">
+          {/* Picture/emoji on top */}
+          <div className="w-[85%] max-w-[440px] mx-auto h-[200px] md:h-[260px] bg-white/5 rounded-xl border border-white/10 flex items-center justify-center overflow-hidden relative z-20">
+            {project.picture ? (
+              <img
+                src={project.picture}
+                alt={project.title}
+                className="w-full h-full object-contain p-2"
+              />
+            ) : (
+              <span className="text-6xl md:text-7xl">{project.image}</span>
+            )}
           </div>
 
-          <div className="hidden md:flex flex-1 w-full h-full bg-white/5 rounded-2xl border border-white/10 items-center justify-center text-8xl grayscale hover:grayscale-0 transition-all duration-500 relative z-20">
-            {project.image}
+          {/* Description on bottom */}
+          <div className="flex-1 flex flex-col justify-between space-y-4 relative z-20">
+            <div className="space-y-2">
+              <div className="flex items-center gap-3">
+                <span className="text-3xl">{project.image}</span>
+                <h3 className="text-2xl md:text-3xl font-bold tracking-tight">
+                  {project.title}
+                </h3>
+              </div>
+              <p className="text-muted-foreground text-sm md:text-base leading-relaxed">
+                {project.description}
+              </p>
+            </div>
+
+            <div className="space-y-4">
+              <div className="flex flex-wrap gap-2">
+                {project.tags.map((tag: string) => (
+                  <span
+                    key={tag}
+                    className="text-xs font-sans font-semibold px-3 py-1 rounded-full bg-primary/10 text-primary border border-primary/20"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+
+              <div className="flex gap-4">
+                <a
+                  href={project.github}
+                  className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 hover:bg-white/10 transition-colors border border-white/10"
+                >
+                  <Github size={16} />{" "}
+                  <span className="text-xs md:text-sm font-medium">Code</span>
+                </a>
+                <a
+                  href={project.live}
+                  className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 hover:bg-white/10 transition-colors border border-white/10"
+                >
+                  <span className="text-xs md:text-sm font-medium">Live Demo</span>{" "}
+                  <ArrowUpRight size={16} />
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </motion.div>
@@ -125,34 +139,36 @@ const ProjectCard = ({ project, index, targetScale }: any) => {
 
 const Projects = () => {
   return (
-    <section
-      id="projects"
-      className="section-padding max-w-6xl mx-auto relative"
-    >
-      <TextReveal delay={0.1}>
-        <h2 className="text-3xl md:text-4xl font-bold mb-4">
-          Featured Projects<span className="text-primary">.</span>
-        </h2>
-      </TextReveal>
-      <div className="glow-line" />
+    <>
+      <section
+        id="projects"
+        className="section-padding max-w-6xl mx-auto relative"
+      >
+        <TextReveal delay={0.1}>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            Featured Projects<span className="text-primary">.</span>
+          </h2>
+        </TextReveal>
+        <div className="glow-line" />
 
-      {/* Featured projects */}
-      <div className="relative z-10">
-        {projects.map((project, i) => {
-          const targetScale = 1 - (projects.length - i) * 0.05;
-          return (
-            <ProjectCard
-              key={project.title}
-              index={i}
-              project={project}
-              targetScale={targetScale}
-            />
-          );
-        })}
-      </div>
+        {/* Featured projects */}
+        <div className="relative z-10">
+          {projects.map((project, i) => {
+            const targetScale = 1 - (projects.length - i) * 0.05;
+            return (
+              <ProjectCard
+                key={project.title}
+                index={i}
+                project={project}
+                targetScale={targetScale}
+              />
+            );
+          })}
+        </div>
+      </section>
 
       {/* Other projects grid */}
-      <div className="relative z-20 pt-10 border-t border-border/30 bg-background">
+      <div className="max-w-6xl mx-auto relative z-20 pt-10 border-t border-border/30 bg-transparent">
         <motion.h3
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -163,7 +179,7 @@ const Projects = () => {
           Other Noteworthy Projects
         </motion.h3>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 pb-20">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 pb-20">
           {otherProjects.map((p, i) => (
             <motion.div
               key={p.title}
@@ -172,7 +188,7 @@ const Projects = () => {
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
               whileHover={{ y: -5, transition: { duration: 0.2 } }}
-              className="glass-card p-6 group cursor-pointer bg-background/50 hover:bg-background/80 transition-colors"
+              className="glass-card p-6 group cursor-pointer bg-transparent hover:bg-white/5 transition-colors"
             >
               <Folder
                 size={32}
@@ -195,7 +211,7 @@ const Projects = () => {
           ))}
         </div>
       </div>
-    </section>
+    </>
   );
 };
 

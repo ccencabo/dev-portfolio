@@ -13,6 +13,7 @@ import {
   Download,
   Eye,
   ChevronDown,
+  Plus,
 } from "lucide-react";
 import TypeWriter from "./TypeWriter";
 import MagneticButton from "./MagneticButton";
@@ -144,8 +145,8 @@ const Hero = ({ onNavigate }: HeroProps) => {
               <h3 className="font-sans font-bold text-sm mb-1 group-hover:text-primary transition-colors">
                 Skills
               </h3>
-              <div className="flex flex-wrap gap-1 mt-2">
-                {["React", "TypeScript", "Node.js"].map((t) => (
+              <div className="flex flex-wrap gap-1 mt-2 items-center">
+                {["Javascript", "PHP", "React"].map((t) => (
                   <span
                     key={t}
                     className="text-[10px] font-sans font-semibold px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20"
@@ -153,6 +154,9 @@ const Hero = ({ onNavigate }: HeroProps) => {
                     {t}
                   </span>
                 ))}
+                <span className="w-5 h-5 rounded-full bg-primary/20 text-primary border border-primary/30 group-hover:bg-primary group-hover:text-background transition-colors duration-300 flex items-center justify-center">
+                  <Plus size={10} strokeWidth={3} />
+                </span>
               </div>
             </div>
           </motion.div>
@@ -179,9 +183,9 @@ const Hero = ({ onNavigate }: HeroProps) => {
               </div>
               <div className="grid grid-cols-3 gap-3">
                 {[
-                  { emoji: "🛒", title: "E-Commerce" },
-                  { emoji: "📋", title: "Task Manager" },
-                  { emoji: "🤖", title: "AI Chat" },
+                  { emoji: "📖", title: "Brewed Tales" },
+                  { emoji: "📊", title: "DataMate" },
+                  { emoji: "🚙", title: "Arangkada" },
                 ].map((p) => (
                   <div
                     key={p.title}

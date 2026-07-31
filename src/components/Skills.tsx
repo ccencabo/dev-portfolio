@@ -7,26 +7,33 @@ const row1Skills = [
   "TypeScript",
   "React.js",
   "Next.js",
-  "Framer Motion",
+  "HTML",
+  "CSS",
   "Tailwind CSS",
-  "HTML5",
-  "CSS3",
-  "Radix UI",
-  "shadcn/ui",
+  "Bootstrap",
+  "Material UI",
+  "Framer Motion",
+  "Figma",
+  "Agile",
+  "Scrum",
 ];
 
 const row2Skills = [
   "PHP",
   "Laravel",
   "Java",
+  "Spring Boot",
+  "C",
   "MySQL",
-  "PostgreSQL",
   "REST APIs",
-  "Figma",
   "Git",
   "GitHub",
+  "GitLab",
   "Docker",
-  "Postman",
+  "AWS",
+  "Stripe",
+  "HubSpot",
+  "AI-assisted development tools",
 ];
 
 const Skills = () => {
@@ -78,7 +85,7 @@ const Skills = () => {
 
       {/* macOS Styled Code Editor */}
       <div className="relative w-full border border-border/40 rounded-2xl bg-card/40 backdrop-blur-md shadow-2xl overflow-hidden group hover:shadow-[0_0_50px_hsl(var(--primary)/0.08)] transition-shadow duration-500">
-        
+
         {/* Soft background glow */}
         <div className="absolute inset-0 -z-10 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 pointer-events-none opacity-40" />
 
@@ -98,8 +105,8 @@ const Skills = () => {
                 key={tab.name}
                 onClick={() => setActiveTab(tab.name)}
                 className={`px-3.5 py-1 rounded-md text-[10px] md:text-[11px] font-sans font-bold cursor-pointer transition-all duration-200 border ${activeTab === tab.name
-                    ? "bg-card dark:bg-[#25151e] text-primary border-primary/20 shadow-[0_0_15px_hsl(var(--primary)/0.1)]"
-                    : "text-muted-foreground/60 border-transparent hover:text-muted-foreground"
+                  ? "bg-card dark:bg-[#25151e] text-primary border-primary/20 shadow-[0_0_15px_hsl(var(--primary)/0.1)]"
+                  : "text-muted-foreground/60 border-transparent hover:text-muted-foreground"
                   }`}
               >
                 {tab.label}
@@ -127,6 +134,11 @@ const Skills = () => {
             <div>8</div>
             <div>9</div>
             <div>10</div>
+            <div>11</div>
+            <div>12</div>
+            <div>13</div>
+            <div>14</div>
+            <div>15</div>
           </div>
 
           {/* Syntax Highlighted JSON Views */}
@@ -141,8 +153,8 @@ const Skills = () => {
                   <span className="json-bracket">[</span>
                   <span className="json-value">"JavaScript"</span>,{" "}
                   <span className="json-value">"TypeScript"</span>,{" "}
-                  <span className="json-value">"HTML5"</span>,{" "}
-                  <span className="json-value">"CSS3"</span>
+                  <span className="json-value">"HTML"</span>,{" "}
+                  <span className="json-value">"CSS"</span>
                   <span className="json-bracket">]</span>,
                 </div>
                 <div className="pl-6">
@@ -168,8 +180,7 @@ const Skills = () => {
                 <div className="pl-6">
                   <span className="json-key">"uiComponents"</span>:{" "}
                   <span className="json-bracket">[</span>
-                  <span className="json-value">"Radix UI"</span>,{" "}
-                  <span className="json-value">"shadcn/ui"</span>
+                  <span className="json-value">"Material UI"</span>
                   <span className="json-bracket">]</span>
                 </div>
                 <div>
@@ -189,22 +200,20 @@ const Skills = () => {
                   <span className="json-bracket">[</span>
                   <span className="json-value">"PHP"</span>,{" "}
                   <span className="json-value">"Java"</span>,{" "}
-                  <span className="json-value">"Node.js"</span>
+                  <span className="json-value">"C"</span>
                   <span className="json-bracket">]</span>,
                 </div>
                 <div className="pl-6">
                   <span className="json-key">"frameworks"</span>:{" "}
                   <span className="json-bracket">[</span>
                   <span className="json-value">"Laravel"</span>,{" "}
-                  <span className="json-value">"Express.js"</span>
+                  <span className="json-value">"Spring Boot"</span>
                   <span className="json-bracket">]</span>,
                 </div>
                 <div className="pl-6">
                   <span className="json-key">"databases"</span>:{" "}
                   <span className="json-bracket">[</span>
-                  <span className="json-value">"MySQL"</span>,{" "}
-                  <span className="json-value">"PostgreSQL"</span>,{" "}
-                  <span className="json-value">"Prisma ORM"</span>
+                  <span className="json-value">"MySQL"</span>
                   <span className="json-bracket">]</span>,
                 </div>
                 <div className="pl-6">
@@ -238,6 +247,7 @@ const Skills = () => {
                   <span className="json-bracket">[</span>
                   <span className="json-value">"Git"</span>,{" "}
                   <span className="json-value">"GitHub"</span>,{" "}
+                  <span className="json-value">"GitLab"</span>,{" "}
                   <span className="json-value">"Bitbucket"</span>
                   <span className="json-bracket">]</span>,
                 </div>
@@ -254,11 +264,29 @@ const Skills = () => {
                   <span className="json-bracket">]</span>,
                 </div>
                 <div className="pl-6">
-                  <span className="json-key">"packageManagers"</span>:{" "}
+                  <span className="json-key">"cloudDevops"</span>:{" "}
                   <span className="json-bracket">[</span>
-                  <span className="json-value">"npm"</span>,{" "}
-                  <span className="json-value">"pnpm"</span>,{" "}
-                  <span className="json-value">"yarn"</span>
+                  <span className="json-value">"AWS"</span>
+                  <span className="json-bracket">]</span>,
+                </div>
+                <div className="pl-6">
+                  <span className="json-key">"integrations"</span>:{" "}
+                  <span className="json-bracket">[</span>
+                  <span className="json-value">"Stripe"</span>,{" "}
+                  <span className="json-value">"HubSpot"</span>
+                  <span className="json-bracket">]</span>,
+                </div>
+                <div className="pl-6">
+                  <span className="json-key">"aiWorkflows"</span>:{" "}
+                  <span className="json-bracket">[</span>
+                  <span className="json-value">"AI-assisted development tools"</span>
+                  <span className="json-bracket">]</span>,
+                </div>
+                <div className="pl-6">
+                  <span className="json-key">"methodologies"</span>:{" "}
+                  <span className="json-bracket">[</span>
+                  <span className="json-value">"Agile"</span>,{" "}
+                  <span className="json-value">"Scrum"</span>
                   <span className="json-bracket">]</span>
                 </div>
                 <div>

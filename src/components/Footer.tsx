@@ -6,13 +6,15 @@ const Footer = () => {
       <div className="flex justify-center gap-6 mb-6">
         {[
           { icon: Github, href: "#", label: "GitHub" },
-          { icon: Linkedin, href: "#", label: "LinkedIn" },
-          { icon: Mail, href: "mailto:hello@example.com", label: "Email" },
+          { icon: Linkedin, href: "https://www.linkedin.com/in/cara-carmel-encabo-779645286", label: "LinkedIn" },
+          { icon: Mail, href: "mailto:caraencabo012301@gmail.com", label: "Email" },
         ].map(({ icon: Icon, href, label }) => (
           <a
             key={label}
             href={href}
             aria-label={label}
+            target={href.startsWith("mailto:") ? undefined : "_blank"}
+            rel={href.startsWith("mailto:") ? undefined : "noopener noreferrer"}
             className="text-muted-foreground hover:text-primary transition-colors duration-300"
           >
             <Icon size={18} />

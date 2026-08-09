@@ -217,7 +217,7 @@ const Hero = ({ onNavigate }: HeroProps) => {
                   href: "https://www.linkedin.com/in/cara-carmel-encabo-779645286",
                   label: "LinkedIn",
                 },
-                { icon: Mail, href: "#", label: "Email" },
+                { icon: Mail, href: "mailto:caraencabo012301@gmail.com", label: "Email" },
               ].map(({ icon: Icon, href, label }) => (
                 <MagneticButton
                   key={label}

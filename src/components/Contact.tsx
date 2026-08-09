@@ -57,7 +57,7 @@ const Contact = () => {
           transition={{ duration: 0.6, delay: 0.4 }}
         >
           <MagneticButton
-            href="mailto:hello@example.com"
+            href="mailto:caraencabo012301@gmail.com"
             className="inline-flex items-center gap-3 px-8 py-4 rounded-2xl border border-primary/50 text-primary font-sans font-bold text-lg hover:bg-primary/10 hover:shadow-[0_0_30px_hsl(var(--primary)/0.2)] transition-all duration-300 group"
           >
             <Mail size={20} />

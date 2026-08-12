@@ -77,7 +77,7 @@ const Hero = ({ onNavigate }: HeroProps) => {
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-primary/20 bg-primary/5 mb-4">
                 <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
                 <span className="font-sans font-semibold text-[10px] tracking-wider uppercase text-primary">
-                  Available for work
+                  Open to Connections
                 </span>
               </div>
               <p className="code-tag mb-2">Hello, I'm</p>
@@ -97,8 +97,7 @@ const Hero = ({ onNavigate }: HeroProps) => {
                 />
               </h2>
               <p className="text-muted-foreground text-sm md:text-base max-w-md leading-relaxed">
-                A full-stack developer specializing in building exceptional,
-                delightful digital experiences.
+                Full-stack developer crafting robust backend systems and user-focused interfaces.
               </p>
             </div>
           </motion.div>

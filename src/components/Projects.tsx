@@ -142,7 +142,7 @@ const Projects = () => {
     <>
       <section
         id="projects"
-        className="section-padding max-w-6xl mx-auto relative"
+        className="px-6 md:px-12 lg:px-24 pt-10 pb-0 md:pt-16 md:pb-0 max-w-6xl mx-auto relative"
       >
         <TextReveal delay={0.1}>
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
@@ -176,7 +176,7 @@ const Projects = () => {
           transition={{ duration: 0.5 }}
           className="text-center font-sans font-bold text-xl text-muted-foreground mb-12"
         >
-          Other Noteworthy Projects
+          Other Projects
         </motion.h3>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 pb-20">

@@ -5,7 +5,7 @@ const Footer = () => {
     <footer className="py-12 px-6 text-center border-t border-border/30">
       <div className="flex justify-center gap-6 mb-6">
         {[
-          { icon: Github, href: "#", label: "GitHub" },
+          { icon: Github, href: "https://github.com/ccencabo", label: "GitHub" },
           { icon: Linkedin, href: "https://www.linkedin.com/in/cara-carmel-encabo-779645286", label: "LinkedIn" },
           { icon: Mail, href: "mailto:caraencabo012301@gmail.com", label: "Email" },
         ].map(({ icon: Icon, href, label }) => (

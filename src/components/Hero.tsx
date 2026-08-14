@@ -210,7 +210,7 @@ const Hero = ({ onNavigate }: HeroProps) => {
             </p>
             <div className="flex items-center gap-3">
               {[
-                { icon: Github, href: "#", label: "GitHub" },
+                { icon: Github, href: "https://github.com/ccencabo", label: "GitHub" },
                 {
                   icon: Linkedin,
                   href: "https://www.linkedin.com/in/cara-carmel-encabo-779645286",

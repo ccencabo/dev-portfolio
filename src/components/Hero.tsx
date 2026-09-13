@@ -82,7 +82,7 @@ const Hero = ({ onNavigate }: HeroProps) => {
               </div>
               <p className="code-tag mb-2">Hello, I'm</p>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-2 tracking-tight">
-                <span className="gradient-text">Cara Encabo</span>
+                <span className="gradient-text">Cara Carmel Encabo</span>
               </h1>
               <h2 className="text-xl md:text-2xl font-bold text-muted-foreground mb-4">
                 I build{" "}

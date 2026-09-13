@@ -22,7 +22,7 @@ const Footer = () => {
         ))}
       </div>
       <p className="font-sans text-xs text-muted-foreground/60">
-        © {new Date().getFullYear()} All rights reserved.
+        © {new Date().getFullYear()} Cara Carmel Encabo. All rights reserved.
       </p>
     </footer>
   );

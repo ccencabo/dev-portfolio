@@ -78,14 +78,14 @@ const Index = () => {
       <MouseGlow />
       <Navbar activeTab={activeTab} onTabChange={handleTabChange} />
 
-      <div className="relative z-10">
+      <main className="relative z-10">
         <Hero onNavigate={handleTabChange} />
         
         <About />
         <Projects />
         <Skills />
         <Contact />
-      </div>
+      </main>
 
       <Footer />
     </div>

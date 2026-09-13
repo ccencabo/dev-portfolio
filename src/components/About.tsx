@@ -1,7 +1,6 @@
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { useRef, useState } from "react";
 import TextReveal from "./TextReveal";
-import ProfilePic from "../assets/cara.jpg";
 
 const InspectorAccordion = ({
   title,
@@ -119,8 +118,8 @@ const About = () => {
           <div className="p-6 flex flex-col items-center justify-center bg-card/5">
             <div className="h-48 w-48 md:h-56 md:w-56 overflow-hidden rounded-xl border border-border bg-card/40 shadow-inner">
               <img
-                src={ProfilePic}
-                alt="Cara Encabo"
+                src="/cara-carmel-encabo.jpg"
+                alt="Portrait of Cara Carmel Encabo"
                 className="h-full w-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-105"
               />
             </div>
@@ -174,7 +173,7 @@ const About = () => {
               </div>
               <div className="space-y-0.5 text-left">
                 <h3 className="text-lg font-bold font-sans tracking-tight text-foreground">
-                  Cara Encabo
+                  Cara Carmel Encabo
                 </h3>
                 <p className="text-xs text-muted-foreground font-semibold">
                   Full Stack Developer

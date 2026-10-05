@@ -1,18 +1,66 @@
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Github, Folder, ArrowUpRight } from "lucide-react";
 import TextReveal from "./TextReveal";
 
-const projects = [
+type ProjectImage = {
+  src: string;
+  label: string;
+};
+
+type Project = {
+  title: string;
+  description: string;
+  tags: string[];
+  github: string;
+  live?: string;
+  image: string;
+  color: string;
+  picture?: string;
+  pictures?: ProjectImage[];
+};
+
+const projects: Project[] = [
   {
-    title: "Brewed Tales",
+    title: "The Second Chapter",
     description:
-      "A playful book-discovery and reading companion with a cozy, interactive interface. Features community shelf sharing, curated recommendations, a 'blind date' style discovery flow, and AI integration for book summaries to make finding your next book fun and inviting.",
-    tags: ["React", "Next.js", "Google Books API", "AI Integration"],
+      "A marketplace built for my small secondhand bookstore to automate book listings, scheduled drops, customer claims, order tracking, and inventory management—replacing a previously manual sales process with a streamlined online workflow.",
+    tags: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Tailwind CSS",
+      "Supabase (PostgreSQL, Auth & Storage)",
+      "Cloudflare Workers",
+      "Vite",
+      "Docker",
+    ],
     github: "#",
-    live: "#",
-    image: "📖",
-    color: "from-amber-400/15 to-orange-200/15",
+    live: "https://thesecondchapter.caralib.com/",
+    image: "📚",
+    pictures: [
+      {
+        src: "/The-Second-Chapter-Homepage-Buyer.png",
+        label: "Buyer homepage",
+      },
+      {
+        src: "/The-Second-Chapter-Latest-Drops.png",
+        label: "Latest book drops",
+      },
+      {
+        src: "/The-Second-Chapter-Tutorial.png",
+        label: "Buyer claiming tutorial",
+      },
+      {
+        src: "/The-Second-Chapter-Homepage-Seller.png",
+        label: "Seller claims dashboard",
+      },
+      {
+        src: "/The-Second-Chapter-Inventory.png",
+        label: "Seller inventory dashboard",
+      },
+    ],
+    color: "from-emerald-400/15 to-orange-200/15",
   },
   {
     title: "DataMate",
@@ -20,7 +68,6 @@ const projects = [
       "A team capstone project streamlining data management for MSMEs. Automates spreadsheet uploads, data cleaning, normalization, and inconsistency detection, converting sheets into a secure database with SQL exports.",
     tags: ["Java", "TypeScript", "React", "MySQL", "Tailwind CSS"],
     github: "#",
-    live: "#",
     image: "📊",
     picture: "/DataMate-Home.png",
     color: "from-blue-400/15 to-indigo-300/15",
@@ -31,7 +78,6 @@ const projects = [
       "A web-based PUV (Public Utility Vehicle) rental management system connecting operators and professional drivers. Operators can list fleets, track payments, and monitor driver assignments online, while drivers can search, apply to lease vehicles, and process rental payments.",
     tags: ["Java", "TypeScript", "React", "MySQL", "Tailwind CSS"],
     github: "#",
-    live: "#",
     image: "🚙",
     picture: "/Arangkada-Home.png",
     color: "from-violet-400/15 to-indigo-300/15",
@@ -39,19 +85,31 @@ const projects = [
 ];
 
 const otherProjects = [
-  { title: "Coming Soon", tags: [] },
+  {
+    title: "Brewed Tales",
+    tags: ["React", "Next.js", "Google Books API", "AI Integration"],
+  },
   { title: "Coming Soon", tags: [] },
   { title: "Coming Soon", tags: [] },
 ];
 
-const ProjectCard = ({ project, index, targetScale }: any) => {
+type ProjectCardProps = {
+  project: Project;
+  index: number;
+  targetScale: number;
+};
+
+const ProjectCard = ({ project, index, targetScale }: ProjectCardProps) => {
   const container = useRef(null);
+  const [activePicture, setActivePicture] = useState(0);
   const { scrollYProgress } = useScroll({
     target: container,
     offset: ["start end", "start start"],
   });
 
   const scale = useTransform(scrollYProgress, [0, 1], [1, targetScale]);
+  const gallery = project.pictures ?? [];
+  const selectedPicture = gallery[activePicture];
 
   return (
     <div
@@ -75,8 +133,47 @@ const ProjectCard = ({ project, index, targetScale }: any) => {
 
         <div className="flex flex-col h-full gap-5">
           {/* Picture/emoji on top */}
-          <div className="w-[85%] max-w-[440px] mx-auto h-[200px] md:h-[260px] bg-white/5 rounded-xl border border-white/10 flex items-center justify-center overflow-hidden relative z-20">
-            {project.picture ? (
+          <div className="w-[85%] max-w-[440px] mx-auto h-[200px] md:h-[260px] bg-white/5 rounded-xl border border-white/10 flex flex-col items-center justify-center overflow-hidden relative z-20">
+            {selectedPicture ? (
+              <>
+                <img
+                  src={selectedPicture.src}
+                  alt={`${project.title} — ${selectedPicture.label}`}
+                  className="w-full min-h-0 flex-1 object-contain p-2"
+                />
+                <div
+                  className="flex w-full gap-1.5 px-2 pb-2"
+                  role="group"
+                  aria-label={`${project.title} screenshot gallery`}
+                >
+                  {gallery.map(
+                    (
+                      picture: ProjectImage,
+                      pictureIndex: number,
+                    ) => (
+                      <button
+                        key={picture.src}
+                        type="button"
+                        onClick={() => setActivePicture(pictureIndex)}
+                        aria-label={`Show ${picture.label}`}
+                        aria-pressed={activePicture === pictureIndex}
+                        className={`h-8 flex-1 overflow-hidden rounded border transition-all ${
+                          activePicture === pictureIndex
+                            ? "border-primary ring-1 ring-primary"
+                            : "border-white/10 opacity-55 hover:opacity-100"
+                        }`}
+                      >
+                        <img
+                          src={picture.src}
+                          alt=""
+                          className="h-full w-full object-cover"
+                        />
+                      </button>
+                    ),
+                  )}
+                </div>
+              </>
+            ) : project.picture ? (
               <img
                 src={project.picture}
                 alt={project.title}
@@ -121,13 +218,30 @@ const ProjectCard = ({ project, index, targetScale }: any) => {
                   <Github size={16} />{" "}
                   <span className="text-xs md:text-sm font-medium">Code</span>
                 </a>
-                <a
-                  href={project.live}
-                  className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 hover:bg-white/10 transition-colors border border-white/10"
-                >
-                  <span className="text-xs md:text-sm font-medium">Live Demo</span>{" "}
-                  <ArrowUpRight size={16} />
-                </a>
+                {project.live ? (
+                  <a
+                    href={project.live}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 hover:bg-white/10 transition-colors border border-white/10"
+                  >
+                    <span className="text-xs md:text-sm font-medium">
+                      Live Demo
+                    </span>{" "}
+                    <ArrowUpRight size={16} />
+                  </a>
+                ) : (
+                  <span
+                    aria-disabled="true"
+                    title="Live demo unavailable"
+                    className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.02] border border-white/5 opacity-40 cursor-not-allowed"
+                  >
+                    <span className="text-xs md:text-sm font-medium">
+                      Live Demo
+                    </span>{" "}
+                    <ArrowUpRight size={16} />
+                  </span>
+                )}
               </div>
             </div>
           </div>
@@ -182,7 +296,7 @@ const Projects = () => {
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 pb-20">
           {otherProjects.map((p, i) => (
             <motion.div
-              key={p.title}
+              key={`${p.title}-${i}`}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}

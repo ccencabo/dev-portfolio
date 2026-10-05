@@ -118,35 +118,46 @@ const ProjectCard = ({ project, index, targetScale }: ProjectCardProps) => {
   return (
     <div
       ref={container}
-      className="h-screen flex items-center justify-center sticky top-0"
+      className="sticky top-0 flex h-screen items-start justify-center pb-4 pt-20 md:items-center md:py-0"
     >
       <motion.div
         style={{
           scale,
-          top: `calc(-5% + ${index * 25}px)`,
         }}
-        className="glass-card relative w-full max-w-5xl h-[580px] p-6 md:p-8 overflow-hidden flex flex-col justify-between border border-border/30 shadow-2xl bg-background/95 backdrop-blur-xl"
+        className="relative flex h-[calc(100vh-6rem)] w-full max-w-5xl flex-col overflow-hidden rounded-2xl border border-border/50 bg-card/80 shadow-2xl backdrop-blur-xl md:h-[620px]"
       >
-        <div
-          className={`absolute inset-0 bg-gradient-to-br ${project.color} -z-10`}
-        />
-
-        <div className="absolute top-4 right-8 font-sans text-8xl font-bold opacity-[0.03] select-none">
-          0{index + 1}
+        <div className="relative z-30 flex items-center justify-between border-b border-border/30 bg-muted/60 px-4 py-3 select-none">
+          <div className="flex gap-1.5" aria-hidden="true">
+            <span className="h-3 w-3 rounded-full bg-[#ff5f56]" />
+            <span className="h-3 w-3 rounded-full bg-[#ffbd2e]" />
+            <span className="h-3 w-3 rounded-full bg-[#27c93f]" />
+          </div>
+          <span className="absolute inset-x-14 truncate text-center font-mono text-[9px] text-muted-foreground/70 md:text-[10px]">
+            Project 0{index + 1} — {project.title}
+          </span>
+          <span className="hidden font-mono text-[9px] text-muted-foreground/50 sm:inline md:text-[10px]">
+            portfolio.app
+          </span>
+          <span className="w-10 sm:hidden" />
         </div>
 
-        <div className="flex flex-col h-full gap-5">
-          {/* Picture/emoji on top */}
-          <div className="w-[90%] max-w-2xl mx-auto h-[200px] md:h-[260px] bg-white/5 rounded-xl border border-white/10 flex flex-col items-center justify-center overflow-hidden relative z-20">
+        <div className="relative flex-1 overflow-y-auto p-4 sm:p-5 md:overflow-hidden md:p-8">
+          <div
+            className={`absolute inset-0 bg-gradient-to-br ${project.color}`}
+          />
+
+          <div className="relative z-20 grid min-h-full gap-4 md:h-full md:min-h-0 md:grid-cols-[1.2fr_0.8fr] md:gap-8">
+            {/* Project preview */}
+            <div className="flex h-40 flex-col items-center justify-center overflow-hidden rounded-xl border border-white/10 bg-background/30 shadow-inner sm:h-[230px] md:h-full">
             {selectedPicture ? (
               <>
                 <img
                   src={selectedPicture.src}
                   alt={`${project.title} — ${selectedPicture.label}`}
-                  className="w-full min-h-0 flex-1 object-contain p-2"
+                  className="w-full min-h-0 flex-1 object-contain p-2.5"
                 />
                 <div
-                  className="flex w-full gap-1.5 px-2 pb-2"
+                  className="flex w-full gap-1.5 border-t border-white/10 bg-background/20 px-2 py-2"
                   role="group"
                   aria-label={`${project.title} screenshot gallery`}
                 >
@@ -181,71 +192,78 @@ const ProjectCard = ({ project, index, targetScale }: ProjectCardProps) => {
               <img
                 src={project.picture}
                 alt={project.title}
-                className="w-full h-full object-contain p-2"
+                className="h-full w-full object-contain p-3"
               />
             ) : (
-              <span className="text-6xl md:text-7xl">{project.image}</span>
+              <div className="flex flex-col items-center gap-4">
+                <span className="text-7xl md:text-8xl">{project.image}</span>
+                <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+                  Preview coming soon
+                </span>
+              </div>
             )}
           </div>
 
-          {/* Description on bottom */}
-          <div className="flex-1 flex flex-col justify-between space-y-4 relative z-20">
-            <div className="space-y-2">
-              <div className="flex items-center gap-3">
-                <span className="text-3xl">{project.image}</span>
-                <h3 className="text-2xl md:text-3xl font-bold tracking-tight">
-                  {project.title}
-                </h3>
-              </div>
-              <p className="text-muted-foreground text-sm md:text-base leading-relaxed">
-                {project.description}
-              </p>
-            </div>
-
-            <div className="space-y-4">
-              <div className="flex flex-wrap gap-2">
-                {project.tags.map((tag: string) => (
-                  <span
-                    key={tag}
-                    className="text-xs font-sans font-semibold px-3 py-1 rounded-full bg-primary/10 text-primary border border-primary/20"
-                  >
-                    {tag}
-                  </span>
-                ))}
+            {/* Project details */}
+            <div className="flex min-h-0 flex-col justify-between gap-5">
+              <div>
+                <div className="mb-4 flex items-center gap-3 border-b border-border/30 pb-4">
+                  <span className="text-3xl">{project.image}</span>
+                  <div>
+                    <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-primary">
+                      Featured project / 0{index + 1}
+                    </p>
+                    <h3 className="text-2xl font-bold tracking-tight md:text-3xl">
+                      {project.title}
+                    </h3>
+                  </div>
+                </div>
+                <p className="text-sm leading-relaxed text-muted-foreground md:text-[15px]">
+                  {project.description}
+                </p>
               </div>
 
-              <div className="flex gap-4">
-                <a
-                  href={project.github}
-                  className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 hover:bg-white/10 transition-colors border border-white/10"
-                >
-                  <Github size={16} />{" "}
-                  <span className="text-xs md:text-sm font-medium">Code</span>
-                </a>
-                {project.live ? (
+              <div className="space-y-4">
+                <div className="flex flex-wrap gap-1.5">
+                  {project.tags.map((tag: string) => (
+                    <span
+                      key={tag}
+                      className="rounded-md border border-primary/20 bg-background/35 px-2.5 py-1 font-sans text-[10px] font-semibold text-primary md:text-xs"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="flex gap-3 border-t border-border/30 pt-4">
                   <a
-                    href={project.live}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 hover:bg-white/10 transition-colors border border-white/10"
+                    href={project.github}
+                    className="flex items-center gap-2 rounded-md border border-border/50 bg-background/35 px-4 py-2 transition-colors hover:border-primary/40 hover:text-primary"
                   >
-                    <span className="text-xs md:text-sm font-medium">
-                      Live Demo
-                    </span>{" "}
-                    <ArrowUpRight size={16} />
+                    <Github size={15} />
+                    <span className="text-xs font-medium">Code</span>
                   </a>
-                ) : (
-                  <span
-                    aria-disabled="true"
-                    title="Live demo unavailable"
-                    className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.02] border border-white/5 opacity-40 cursor-not-allowed"
-                  >
-                    <span className="text-xs md:text-sm font-medium">
-                      Live Demo
-                    </span>{" "}
-                    <ArrowUpRight size={16} />
-                  </span>
-                )}
+                  {project.live ? (
+                    <a
+                      href={project.live}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="flex items-center gap-2 rounded-md border border-border/50 bg-background/35 px-4 py-2 transition-colors hover:border-primary/40 hover:text-primary"
+                    >
+                      <span className="text-xs font-medium">Live Demo</span>
+                      <ArrowUpRight size={15} />
+                    </a>
+                  ) : (
+                    <span
+                      aria-disabled="true"
+                      title="Live demo unavailable"
+                      className="flex cursor-not-allowed items-center gap-2 rounded-md border border-border/30 bg-background/20 px-4 py-2 opacity-40"
+                    >
+                      <span className="text-xs font-medium">Live Demo</span>
+                      <ArrowUpRight size={15} />
+                    </span>
+                  )}
+                </div>
               </div>
             </div>
           </div>
@@ -297,7 +315,7 @@ const Projects = () => {
           Other Projects
         </motion.h3>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 pb-20">
+        <div className="mx-auto max-w-xl px-6 pb-20">
           {otherProjects.map((p, i) => (
             <motion.div
               key={`${p.title}-${i}`}
@@ -306,24 +324,40 @@ const Projects = () => {
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
               whileHover={{ y: -5, transition: { duration: 0.2 } }}
-              className="glass-card p-6 group cursor-pointer bg-transparent hover:bg-white/5 transition-colors"
+              className="group overflow-hidden rounded-2xl border border-border/50 bg-card/40 shadow-xl backdrop-blur-md transition-colors hover:border-primary/30"
             >
-              <Folder
-                size={32}
-                className="text-primary mb-4 group-hover:rotate-[-5deg] transition-transform"
-              />
-              <h4 className="font-sans text-lg font-bold mb-3 group-hover:text-primary transition-colors">
-                {p.title}
-              </h4>
-              <div className="flex flex-wrap gap-2">
-                {p.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="text-xs font-sans font-semibold text-muted-foreground bg-white/5 border border-border/20 px-2 py-1 rounded-full"
-                  >
-                    {tag}
-                  </span>
-                ))}
+              <div className="relative flex items-center justify-between border-b border-border/30 bg-muted/40 px-4 py-2.5">
+                <div className="flex gap-1.5" aria-hidden="true">
+                  <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f56]" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-[#ffbd2e]" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-[#27c93f]" />
+                </div>
+                <span className="absolute left-1/2 -translate-x-1/2 font-mono text-[9px] text-muted-foreground/60">
+                  projects / upcoming
+                </span>
+                <div className="w-10" />
+              </div>
+              <div className="flex min-h-44 flex-col items-center justify-center bg-gradient-to-br from-primary/5 to-accent/5 p-8 text-center">
+                <Folder
+                  size={38}
+                  className="mb-4 text-primary transition-transform group-hover:rotate-[-5deg]"
+                />
+                <h4 className="font-sans text-lg font-bold transition-colors group-hover:text-primary">
+                  {p.title}
+                </h4>
+                <p className="mt-2 font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
+                  New work is on the way
+                </p>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {p.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="rounded-md border border-border/20 bg-background/30 px-2 py-1 font-sans text-xs font-semibold text-muted-foreground"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
               </div>
             </motion.div>
           ))}

@@ -211,7 +211,7 @@ const About = () => {
             </InspectorAccordion>
 
             {/* Accordion 2: Education */}
-            <InspectorAccordion title="Education" defaultOpen={false}>
+            <InspectorAccordion title="Education" defaultOpen={true}>
               <div className="grid grid-cols-3 gap-y-1.5 text-[11px] md:text-xs font-sans text-left">
                 <div className="text-muted-foreground font-semibold">Degree:</div>
                 <div className="col-span-2 text-foreground font-bold">

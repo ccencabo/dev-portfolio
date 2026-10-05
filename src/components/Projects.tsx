@@ -82,14 +82,18 @@ const projects: Project[] = [
     picture: "/Arangkada-Home.png",
     color: "from-violet-400/15 to-indigo-300/15",
   },
+  {
+    title: "Brewed Tales",
+    description:
+      "A playful book-discovery and reading companion with a cozy, interactive interface. Features community shelf sharing, curated recommendations, a 'blind date' style discovery flow, and AI integration for book summaries to make finding your next book fun and inviting.",
+    tags: ["React", "Next.js", "Google Books API", "AI Integration"],
+    github: "#",
+    image: "📖",
+    color: "from-amber-400/15 to-orange-200/15",
+  },
 ];
 
 const otherProjects = [
-  {
-    title: "Brewed Tales",
-    tags: ["React", "Next.js", "Google Books API", "AI Integration"],
-  },
-  { title: "Coming Soon", tags: [] },
   { title: "Coming Soon", tags: [] },
 ];
 
@@ -121,7 +125,7 @@ const ProjectCard = ({ project, index, targetScale }: ProjectCardProps) => {
           scale,
           top: `calc(-5% + ${index * 25}px)`,
         }}
-        className="glass-card relative w-full max-w-3xl h-[580px] p-6 md:p-8 overflow-hidden flex flex-col justify-between border border-border/30 shadow-2xl bg-background/95 backdrop-blur-xl"
+        className="glass-card relative w-full max-w-5xl h-[580px] p-6 md:p-8 overflow-hidden flex flex-col justify-between border border-border/30 shadow-2xl bg-background/95 backdrop-blur-xl"
       >
         <div
           className={`absolute inset-0 bg-gradient-to-br ${project.color} -z-10`}
@@ -133,7 +137,7 @@ const ProjectCard = ({ project, index, targetScale }: ProjectCardProps) => {
 
         <div className="flex flex-col h-full gap-5">
           {/* Picture/emoji on top */}
-          <div className="w-[85%] max-w-[440px] mx-auto h-[200px] md:h-[260px] bg-white/5 rounded-xl border border-white/10 flex flex-col items-center justify-center overflow-hidden relative z-20">
+          <div className="w-[90%] max-w-2xl mx-auto h-[200px] md:h-[260px] bg-white/5 rounded-xl border border-white/10 flex flex-col items-center justify-center overflow-hidden relative z-20">
             {selectedPicture ? (
               <>
                 <img

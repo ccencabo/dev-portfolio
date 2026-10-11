@@ -1,11 +1,6 @@
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import {
-  AtSign,
-  Github,
-  Linkedin,
-  MapPin,
-} from "lucide-react";
+import { AtSign, Github, Linkedin, MapPin } from "lucide-react";
 import TextReveal from "./TextReveal";
 
 const contactLinks = [
@@ -63,7 +58,7 @@ const Contact = () => {
       <div className="mb-10 md:mb-14">
         <TextReveal delay={0.1}>
           <h2 className="mb-4 text-3xl font-bold md:text-4xl">
-            Start a conversation<span className="text-primary">.</span>
+            Get in touch<span className="text-primary">.</span>
           </h2>
         </TextReveal>
       </div>
@@ -72,74 +67,60 @@ const Contact = () => {
         initial={{ opacity: 0, y: 30 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-        className="overflow-hidden rounded-2xl border border-border/50 bg-card/70 shadow-2xl backdrop-blur-xl"
+        className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-center lg:gap-12"
       >
-        <div className="relative flex items-center justify-between border-b border-border/30 bg-muted/60 px-4 py-3 select-none">
-          <div className="flex gap-1.5" aria-hidden="true">
-            <span className="h-3 w-3 rounded-full bg-[#ff5f56]" />
-            <span className="h-3 w-3 rounded-full bg-[#ffbd2e]" />
-            <span className="h-3 w-3 rounded-full bg-[#27c93f]" />
+        <div className="relative py-2 lg:py-6">
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute -top-8 right-4 -z-10 font-mono text-[9rem] font-bold leading-none text-primary/[0.06] sm:text-[11rem] lg:right-0"
+          >
+            @
+          </span>
+
+          <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.22em] text-primary">
+            Contact channels
+          </p>
+          <h3 className="max-w-xs text-xl font-bold leading-snug tracking-tight sm:text-2xl">
+            Start a conversation.
+          </h3>
+
+          <div className="mt-8 flex w-fit items-center gap-2 text-xs text-muted-foreground">
+            <MapPin size={14} className="text-primary" />
+            Cebu City, Philippines
           </div>
-          <span className="pointer-events-none absolute left-1/2 max-w-[60%] -translate-x-1/2 truncate text-center font-mono text-[9px] text-muted-foreground/70 sm:max-w-[70%] md:text-[10px]">
-            contact.app - choose a channel
-          </span>
-          <span className="hidden font-mono text-[9px] text-muted-foreground/50 sm:inline md:text-[10px]">
-            portfolio.app
-          </span>
-          <span className="w-10 sm:hidden" />
         </div>
 
-        <div className="relative overflow-hidden p-6 sm:p-8 lg:p-10">
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-accent/10" />
-          <div className="relative">
-            <div className="mb-8 flex flex-col gap-5 border-b border-border/30 pb-8 sm:flex-row sm:items-end sm:justify-between">
-              <div>
-                <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.2em] text-primary">
-                  Contact channels
-                </p>
-                <h3 className="text-2xl font-bold tracking-tight sm:text-3xl">
-                  Choose what works for you.
-                </h3>
-              </div>
-              <div className="flex shrink-0 items-center gap-2 text-xs text-muted-foreground">
-                <MapPin size={14} className="text-primary" />
-                Cebu City, Philippines
-              </div>
-            </div>
-
-            <div className="grid gap-3 md:grid-cols-3">
-              {contactLinks.map(({ label, value, href, icon: Icon }, index) => (
-                <motion.a
-                  key={label}
-                  href={href}
-                  target={href.startsWith("mailto:") ? undefined : "_blank"}
-                  rel={href.startsWith("mailto:") ? undefined : "noopener noreferrer"}
-                  initial={{ opacity: 0, y: 16 }}
-                  animate={inView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.45, delay: 0.35 + index * 0.08 }}
-                  className="glass-card group relative flex min-h-40 min-w-0 flex-col justify-between overflow-hidden p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 focus-visible:border-primary/40 focus-visible:outline-none sm:p-7"
-                >
-                  <span
-                    aria-hidden="true"
-                    className="pointer-events-none absolute inset-0 bg-primary/5 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                  />
-                  <div className="relative z-10 flex items-start">
-                    <span className="grid h-10 w-10 place-items-center rounded-xl bg-primary/10 text-primary">
-                      <Icon size={18} />
-                    </span>
-                  </div>
-                  <span className="relative z-10 mt-8 min-w-0">
-                    <span className="mb-1 block font-mono text-[9px] uppercase tracking-[0.16em] text-muted-foreground">
-                      {label}
-                    </span>
-                    <span className="block truncate text-sm font-semibold">
-                      {value}
-                    </span>
-                  </span>
-                </motion.a>
-              ))}
-            </div>
-          </div>
+        <div className="glass-card overflow-hidden rounded-2xl">
+          {contactLinks.map(({ label, value, href, icon: Icon }, index) => (
+            <motion.a
+              key={label}
+              href={href}
+              target={href.startsWith("mailto:") ? undefined : "_blank"}
+              rel={
+                href.startsWith("mailto:") ? undefined : "noopener noreferrer"
+              }
+              initial={{ opacity: 0, y: 16 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.45, delay: 0.35 + index * 0.08 }}
+              className={`group flex min-w-0 items-center gap-4 px-5 py-5 transition-colors duration-300 hover:bg-primary/5 focus-visible:bg-primary/5 focus-visible:outline-none sm:px-6 sm:py-6 ${
+                index < contactLinks.length - 1
+                  ? "border-b border-border/40"
+                  : ""
+              }`}
+            >
+              <span className="shrink-0 text-primary">
+                <Icon size={19} />
+              </span>
+              <span className="min-w-0 flex-1">
+                <span className="mb-1 block font-mono text-[9px] uppercase tracking-[0.16em] text-muted-foreground">
+                  {label}
+                </span>
+                <span className="block break-words text-sm font-semibold transition-colors group-hover:text-primary sm:text-base">
+                  {value}
+                </span>
+              </span>
+            </motion.a>
+          ))}
         </div>
       </motion.div>
     </motion.section>

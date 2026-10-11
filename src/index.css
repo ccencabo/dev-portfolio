@@ -160,6 +160,10 @@ html {
   scroll-behavior: smooth;
 }
 
+html.project-window-maximized main {
+  z-index: 100;
+}
+
 ::-webkit-scrollbar {
   width: 6px;
 }

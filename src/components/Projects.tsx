@@ -1,6 +1,12 @@
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef, useState } from "react";
-import { Github, Folder, ArrowUpRight } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import {
+  Github,
+  Folder,
+  ArrowUpRight,
+  Maximize2,
+  Minimize2,
+} from "lucide-react";
 import TextReveal from "./TextReveal";
 
 type ProjectImage = {
@@ -103,7 +109,9 @@ type ProjectCardProps = {
 
 const ProjectCard = ({ project, index, targetScale }: ProjectCardProps) => {
   const container = useRef(null);
+  const maximizeButton = useRef<HTMLButtonElement>(null);
   const [activePicture, setActivePicture] = useState(0);
+  const [isMaximized, setIsMaximized] = useState(false);
   const { scrollYProgress } = useScroll({
     target: container,
     offset: ["start end", "start start"],
@@ -113,24 +121,73 @@ const ProjectCard = ({ project, index, targetScale }: ProjectCardProps) => {
   const gallery = project.pictures ?? [];
   const selectedPicture = gallery[activePicture];
 
+  useEffect(() => {
+    if (!isMaximized) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    document.documentElement.classList.add("project-window-maximized");
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setIsMaximized(false);
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    window.requestAnimationFrame(() => maximizeButton.current?.focus());
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.documentElement.classList.remove("project-window-maximized");
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isMaximized]);
+
   return (
     <div
       ref={container}
-      className="sticky top-0 flex h-screen items-start justify-center pb-4 pt-20 md:items-center md:py-0"
+      className={`flex h-screen items-start justify-center pb-4 pt-20 md:items-center md:py-0 ${
+        isMaximized ? "" : "sticky top-0"
+      }`}
     >
       <motion.div
         style={{
-          scale,
+          scale: isMaximized ? 1 : scale,
         }}
-        className="relative flex h-[calc(100vh-6rem)] w-full max-w-5xl flex-col overflow-hidden rounded-2xl border border-border/50 bg-card/80 shadow-2xl backdrop-blur-xl md:h-[620px]"
+        role={isMaximized ? "dialog" : undefined}
+        aria-modal={isMaximized || undefined}
+        aria-label={isMaximized ? `${project.title} project details` : undefined}
+        className={`flex w-full flex-col overflow-hidden border border-border/50 shadow-2xl backdrop-blur-xl ${
+          isMaximized
+            ? "fixed inset-0 z-[100] h-[100dvh] max-w-none rounded-none bg-card/95"
+            : "relative h-[calc(100vh-6rem)] max-w-5xl rounded-2xl bg-card/80 md:h-[620px]"
+        }`}
       >
-        <div className="relative z-30 flex items-center justify-between border-b border-border/30 bg-muted/60 px-4 py-3 select-none">
-          <div className="flex gap-1.5" aria-hidden="true">
-            <span className="h-3 w-3 rounded-full bg-[#ff5f56]" />
-            <span className="h-3 w-3 rounded-full bg-[#ffbd2e]" />
-            <span className="h-3 w-3 rounded-full bg-[#27c93f]" />
+        <div className="relative z-30 flex shrink-0 items-center justify-between border-b border-border/30 bg-muted/60 px-3 py-2.5 select-none sm:px-4 sm:py-3">
+          <div className="flex items-center" aria-label="Window controls">
+            <span className="mx-1 h-3 w-3 rounded-full bg-[#ff5f56]" aria-hidden="true" />
+            <span className="mx-1 h-3 w-3 rounded-full bg-[#ffbd2e]" aria-hidden="true" />
+            <button
+              ref={maximizeButton}
+              type="button"
+              onClick={() => setIsMaximized((current) => !current)}
+              aria-label={`${isMaximized ? "Restore" : "Maximize"} ${project.title} project window`}
+              aria-expanded={isMaximized}
+              title={isMaximized ? "Restore window (Esc)" : "Maximize window"}
+              className="group grid h-10 w-10 touch-manipulation place-items-center rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-muted sm:h-7 sm:w-7"
+            >
+              <span className="grid h-3 w-3 place-items-center rounded-full bg-[#27c93f] text-black/70 transition-transform group-hover:scale-110">
+                {isMaximized ? (
+                  <Minimize2 className="h-2 w-2" strokeWidth={3} />
+                ) : (
+                  <Maximize2
+                    className="h-2 w-2 opacity-70 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100 md:opacity-0"
+                    strokeWidth={3}
+                  />
+                )}
+              </span>
+            </button>
           </div>
-          <span className="absolute inset-x-14 truncate text-center font-mono text-[9px] text-muted-foreground/70 md:text-[10px]">
+          <span className="pointer-events-none absolute inset-x-24 truncate text-center font-mono text-[9px] text-muted-foreground/70 sm:inset-x-28 md:text-[10px]">
             Project 0{index + 1} — {project.title}
           </span>
           <span className="hidden font-mono text-[9px] text-muted-foreground/50 sm:inline md:text-[10px]">
@@ -139,14 +196,28 @@ const ProjectCard = ({ project, index, targetScale }: ProjectCardProps) => {
           <span className="w-10 sm:hidden" />
         </div>
 
-        <div className="relative flex-1 overflow-y-auto p-4 sm:p-5 md:overflow-hidden md:p-8">
+        <div
+          className={`relative min-h-0 flex-1 overflow-y-auto p-4 sm:p-5 md:p-8 ${
+            isMaximized ? "" : "md:overflow-hidden"
+          }`}
+        >
           <div
             className={`absolute inset-0 bg-gradient-to-br ${project.color}`}
           />
 
-          <div className="relative z-20 grid min-h-full gap-4 md:h-full md:min-h-0 md:grid-cols-[1.2fr_0.8fr] md:gap-8">
+          <div
+            className={`relative z-20 grid min-h-full gap-4 md:grid-cols-[1.2fr_0.8fr] md:gap-8 ${
+              isMaximized ? "md:min-h-full" : "md:h-full md:min-h-0"
+            }`}
+          >
             {/* Project preview */}
-            <div className="flex h-40 flex-col items-center justify-center overflow-hidden rounded-xl border border-white/10 bg-background/30 shadow-inner sm:h-[230px] md:h-full">
+            <div
+              className={`flex flex-col items-center justify-center overflow-hidden rounded-xl border border-white/10 bg-background/30 shadow-inner ${
+                isMaximized
+                  ? "h-[38dvh] min-h-[220px] sm:h-[44dvh] md:h-auto"
+                  : "h-40 sm:h-[230px] md:h-full"
+              }`}
+            >
               {selectedPicture ? (
                 <>
                   <img

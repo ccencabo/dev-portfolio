@@ -25,14 +25,21 @@ const row2Skills = [
   "Spring Boot",
   "C",
   "MySQL",
+  "PostgreSQL",
+  "Supabase",
   "REST APIs",
   "Git",
   "GitHub",
   "GitLab",
   "Docker",
   "AWS",
+  "DigitalOcean",
+  "Cloudflare",
   "Stripe",
   "HubSpot",
+  "Cursor",
+  "Claude Code",
+  "Codex",
   "AI-assisted development tools",
 ];
 
@@ -213,7 +220,9 @@ const Skills = () => {
                 <div className="pl-6">
                   <span className="json-key">"databases"</span>:{" "}
                   <span className="json-bracket">[</span>
-                  <span className="json-value">"MySQL"</span>
+                  <span className="json-value">"MySQL"</span>,{" "}
+                  <span className="json-value">"PostgreSQL"</span>,{" "}
+                  <span className="json-value">"Supabase"</span>
                   <span className="json-bracket">]</span>,
                 </div>
                 <div className="pl-6">
@@ -266,7 +275,9 @@ const Skills = () => {
                 <div className="pl-6">
                   <span className="json-key">"cloudDevops"</span>:{" "}
                   <span className="json-bracket">[</span>
-                  <span className="json-value">"AWS"</span>
+                  <span className="json-value">"AWS"</span>,{" "}
+                  <span className="json-value">"DigitalOcean"</span>,{" "}
+                  <span className="json-value">"Cloudflare"</span>
                   <span className="json-bracket">]</span>,
                 </div>
                 <div className="pl-6">
@@ -279,6 +290,9 @@ const Skills = () => {
                 <div className="pl-6">
                   <span className="json-key">"aiWorkflows"</span>:{" "}
                   <span className="json-bracket">[</span>
+                  <span className="json-value">"Cursor"</span>,{" "}
+                  <span className="json-value">"Claude Code"</span>,{" "}
+                  <span className="json-value">"Codex"</span>,{" "}
                   <span className="json-value">"AI-assisted development tools"</span>
                   <span className="json-bracket">]</span>,
                 </div>

@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import TypeWriter from "./TypeWriter";
 import MagneticButton from "./MagneticButton";
+import resumeUrl from "@/assets/Cara-Encabo-Resume.pdf";
 
 interface HeroProps {
   onNavigate?: (tab: string) => void;
@@ -237,7 +238,7 @@ const Hero = ({ onNavigate }: HeroProps) => {
             className="glass-card p-6 group hover:border-primary/40 hover:-translate-y-1 transition-all duration-300 relative overflow-hidden"
           >
             <a
-              href="/resume.pdf"
+              href={resumeUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="absolute inset-0 z-0"
@@ -251,19 +252,21 @@ const Hero = ({ onNavigate }: HeroProps) => {
 
                 <div className="flex items-center gap-3 pointer-events-auto">
                   <a
-                    href="/resume.pdf"
+                    href={resumeUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="cursor-pointer text-muted-foreground hover:text-primary transition-colors"
+                    aria-label="View resume"
+                    className="inline-flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-primary/10 hover:text-primary"
                     title="View Resume"
                   >
                     <Eye size={16} />
                   </a>
 
                   <a
-                    href="/resume.pdf"
+                    href={resumeUrl}
                     download="Cara_Encabo_Resume.pdf"
-                    className="cursor-pointer text-muted-foreground hover:text-primary hover:-translate-y-0.5 transition-all"
+                    aria-label="Download resume"
+                    className="inline-flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-all hover:-translate-y-0.5 hover:bg-primary/10 hover:text-primary"
                     title="Download Resume"
                   >
                     <Download size={16} />

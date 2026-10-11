@@ -8,7 +8,6 @@ import {
   Palette,
   Zap,
   Folder,
-  ArrowUpRight,
   FileText,
   Download,
   Eye,
@@ -111,12 +110,8 @@ const Hero = ({ onNavigate }: HeroProps) => {
           >
             <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             <div className="relative">
-              <div className="flex items-center justify-between mb-3">
+              <div className="mb-3 flex items-center">
                 <Code2 size={20} className="text-primary" />
-                <ArrowUpRight
-                  size={14}
-                  className="text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all"
-                />
               </div>
               <h3 className="font-sans font-bold text-sm mb-1 group-hover:text-primary transition-colors">
                 About Me
@@ -135,12 +130,8 @@ const Hero = ({ onNavigate }: HeroProps) => {
           >
             <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             <div className="relative">
-              <div className="flex items-center justify-between mb-3">
+              <div className="mb-3 flex items-center">
                 <Zap size={20} className="text-primary" />
-                <ArrowUpRight
-                  size={14}
-                  className="text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all"
-                />
               </div>
               <h3 className="font-sans font-bold text-sm mb-1 group-hover:text-primary transition-colors">
                 Skills
@@ -169,17 +160,13 @@ const Hero = ({ onNavigate }: HeroProps) => {
           >
             <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             <div className="relative">
-              <div className="flex items-center justify-between mb-3">
+              <div className="mb-3 flex items-center">
                 <div className="flex items-center gap-2">
                   <Folder size={20} className="text-primary" />
                   <h3 className="font-sans font-bold text-sm group-hover:text-primary transition-colors">
                     Featured Projects
                   </h3>
                 </div>
-                <ArrowUpRight
-                  size={14}
-                  className="text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all"
-                />
               </div>
               <div className="grid grid-cols-3 gap-3">
                 {[
@@ -290,12 +277,8 @@ const Hero = ({ onNavigate }: HeroProps) => {
           >
             <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             <div className="relative">
-              <div className="flex items-center justify-between mb-3">
+              <div className="mb-3 flex items-center">
                 <Palette size={20} className="text-primary" />
-                <ArrowUpRight
-                  size={14}
-                  className="text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all"
-                />
               </div>
               <h3 className="font-sans font-bold text-sm mb-1 group-hover:text-primary transition-colors">
                 Let's Talk

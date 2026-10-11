@@ -24,7 +24,7 @@ const projects: Project[] = [
   {
     title: "The Second Chapter",
     description:
-      "A marketplace built for my small secondhand bookstore to automate book listings, scheduled drops, customer claims, order tracking, and inventory management—replacing a previously manual sales process with a streamlined online workflow.",
+      "A marketplace built for my small secondhand bookstore to automate book listings, scheduled drops, customer claims, order tracking, and inventory management. This replaces a previously manual sales process with a streamlined online workflow.",
     tags: [
       "Next.js",
       "React",
@@ -93,9 +93,7 @@ const projects: Project[] = [
   },
 ];
 
-const otherProjects = [
-  { title: "Coming Soon", tags: [] },
-];
+const otherProjects = [{ title: "Coming Soon", tags: [] }];
 
 type ProjectCardProps = {
   project: Project;
@@ -149,60 +147,57 @@ const ProjectCard = ({ project, index, targetScale }: ProjectCardProps) => {
           <div className="relative z-20 grid min-h-full gap-4 md:h-full md:min-h-0 md:grid-cols-[1.2fr_0.8fr] md:gap-8">
             {/* Project preview */}
             <div className="flex h-40 flex-col items-center justify-center overflow-hidden rounded-xl border border-white/10 bg-background/30 shadow-inner sm:h-[230px] md:h-full">
-            {selectedPicture ? (
-              <>
+              {selectedPicture ? (
+                <>
+                  <img
+                    src={selectedPicture.src}
+                    alt={`${project.title} — ${selectedPicture.label}`}
+                    className="w-full min-h-0 flex-1 object-contain p-2.5"
+                  />
+                  <div
+                    className="flex w-full gap-1.5 border-t border-white/10 bg-background/20 px-2 py-2"
+                    role="group"
+                    aria-label={`${project.title} screenshot gallery`}
+                  >
+                    {gallery.map(
+                      (picture: ProjectImage, pictureIndex: number) => (
+                        <button
+                          key={picture.src}
+                          type="button"
+                          onClick={() => setActivePicture(pictureIndex)}
+                          aria-label={`Show ${picture.label}`}
+                          aria-pressed={activePicture === pictureIndex}
+                          className={`h-8 flex-1 overflow-hidden rounded border transition-all ${
+                            activePicture === pictureIndex
+                              ? "border-primary ring-1 ring-primary"
+                              : "border-white/10 opacity-55 hover:opacity-100"
+                          }`}
+                        >
+                          <img
+                            src={picture.src}
+                            alt=""
+                            className="h-full w-full object-cover"
+                          />
+                        </button>
+                      ),
+                    )}
+                  </div>
+                </>
+              ) : project.picture ? (
                 <img
-                  src={selectedPicture.src}
-                  alt={`${project.title} — ${selectedPicture.label}`}
-                  className="w-full min-h-0 flex-1 object-contain p-2.5"
+                  src={project.picture}
+                  alt={project.title}
+                  className="h-full w-full object-contain p-3"
                 />
-                <div
-                  className="flex w-full gap-1.5 border-t border-white/10 bg-background/20 px-2 py-2"
-                  role="group"
-                  aria-label={`${project.title} screenshot gallery`}
-                >
-                  {gallery.map(
-                    (
-                      picture: ProjectImage,
-                      pictureIndex: number,
-                    ) => (
-                      <button
-                        key={picture.src}
-                        type="button"
-                        onClick={() => setActivePicture(pictureIndex)}
-                        aria-label={`Show ${picture.label}`}
-                        aria-pressed={activePicture === pictureIndex}
-                        className={`h-8 flex-1 overflow-hidden rounded border transition-all ${
-                          activePicture === pictureIndex
-                            ? "border-primary ring-1 ring-primary"
-                            : "border-white/10 opacity-55 hover:opacity-100"
-                        }`}
-                      >
-                        <img
-                          src={picture.src}
-                          alt=""
-                          className="h-full w-full object-cover"
-                        />
-                      </button>
-                    ),
-                  )}
+              ) : (
+                <div className="flex flex-col items-center gap-4">
+                  <span className="text-7xl md:text-8xl">{project.image}</span>
+                  <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+                    Preview coming soon
+                  </span>
                 </div>
-              </>
-            ) : project.picture ? (
-              <img
-                src={project.picture}
-                alt={project.title}
-                className="h-full w-full object-contain p-3"
-              />
-            ) : (
-              <div className="flex flex-col items-center gap-4">
-                <span className="text-7xl md:text-8xl">{project.image}</span>
-                <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
-                  Preview coming soon
-                </span>
-              </div>
-            )}
-          </div>
+              )}
+            </div>
 
             {/* Project details */}
             <div className="flex min-h-0 flex-col justify-between gap-5">

@@ -41,7 +41,7 @@ const projects: Project[] = [
       "Vite",
       "Docker",
     ],
-    github: "#",
+    github: "https://github.com/ccencabo/bookdrop",
     live: "https://thesecondchapter.caralib.com/",
     image: "📚",
     pictures: [
